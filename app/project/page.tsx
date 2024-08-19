@@ -35,7 +35,7 @@ export default function Project() {
     },
     {
       img: "/hello.png",
-      title: "Milestone-01-Hello_World",
+      title: "Hello_World App",
       description: "A Simple Hello World Application build with nextjs and styled with Tailwind",
       route: "//nextjs-react-milestones.vercel.app/",
     },
