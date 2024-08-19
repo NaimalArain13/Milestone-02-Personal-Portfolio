@@ -8,7 +8,7 @@ export default function HeroSection() {
   return (
       <div className=" w-full text-neutral-300">
         <div className="flex justify-center pt-10">
-          <button className="bg-text border-cyan-100  border-y-2 divide-x-0 space-x-2 rounded-l-full py-1.5 text-sm flex items-center justify-center text-neutral-300 rounded-r-full px-4">
+          <button className="bg-text border-cyan-100  border-y-2 divide-x-0 space-x-2 rounded-l-full py-2 text-sm flex items-center justify-center text-neutral-300 rounded-r-full px-4">
             <p className="text-yellow-300">
               <GoDotFill />{" "}
        

@@ -42,7 +42,7 @@ export default function About() {
             data-aos-easing="ease-out-cubic"
             data-aos-duration="1500"
           >
-            <p className="flex items-center pt-9 px-14 text-justify tracking-widest text-md">
+            <p className=" pt-9 px-14  tracking-wider text-md">
               I am Naimal Salahuddin.
               <br />
               <br />I&#39;m a front-end developer passionate about crafting user-friendly web interfaces. Over the past 1.5 years, I&#39;ve been learning and refining my skills in front-end technologies through various hands-on projects. I have a foundational understanding of AI too, having completed a basic course in the field. 
