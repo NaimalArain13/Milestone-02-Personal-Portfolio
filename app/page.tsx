@@ -23,9 +23,9 @@ export default function Home() {
         <About />
       </div>
 
-      <div className="pt-20">
+      {/* <div className="pt-20">
         <TechStack />
-      </div>
+      </div> */}
       
       <div className="pt-20" id="contact">
         <Contact />
