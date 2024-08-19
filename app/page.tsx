@@ -2,7 +2,7 @@ import About from "./about/page";
 import HeroSection from "./components/heroSection";
 import Contact from "./contact/page";
 import Project from "./project/page";
-import "./globals.css";
+// import "./globals.css";
 import TechStack from "./components/autoSroll";
 
 export default function Home() {
