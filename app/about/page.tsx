@@ -45,7 +45,7 @@ export default function About() {
             <p className="flex items-center pt-9 px-14 text-justify tracking-widest text-md">
               I am Naimal Salahuddin.
               <br />
-              <br />I'm a front-end developer passionate about crafting user-friendly web interfaces. Over the past 1.5 years, I've been learning and refining my skills in front-end technologies through various hands-on projects. In addition to my front-end work, I have a foundational understanding of AI, having completed a basic course in the field. 
+              <br />I&#39;m a front-end developer passionate about crafting user-friendly web interfaces. Over the past 1.5 years, I've been learning and refining my skills in front-end technologies through various hands-on projects. In addition to my front-end work, I have a foundational understanding of AI, having completed a basic course in the field. 
             </p>
           </div>
           
