@@ -6,7 +6,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { FaPython } from "react-icons/fa";
 import React from 'react';
 
-export default function AutoScroll() {
+export default function TechStack() {
   return (
     <div className="overflow-hidden w-full">
       <div>

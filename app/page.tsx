@@ -3,14 +3,14 @@ import HeroSection from "./components/heroSection";
 import Contact from "./contact/page";
 import Project from "./project/page";
 import "./globals.css";
-import AutoScroll from "./components/autoSroll";
+import TechStack from "./components/autoSroll";
 
 export default function Home() {
   // const img = {
   //   img: "/image.jpg",
   // };
   return (
-    <div className="bg-bg min-h-screen">
+    <div className="bg-bg">
       <div>
         <HeroSection />
       </div>
@@ -22,7 +22,11 @@ export default function Home() {
       <div className="pt-20" id="about">
         <About />
       </div>
-      <br /> <br />
+
+      <div className="pt-20">
+        <TechStack />
+      </div>
+      
       <div className="pt-20" id="contact">
         <Contact />
       </div>
