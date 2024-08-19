@@ -34,7 +34,7 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <nav className="absolute top-16 left-0 right-0 bg-text text-center">
-          <ul className="flex flex-col gap-4 py-4 text-bg">
+          <ul className="flex flex-col gap-4 py-4 text-text2">
             <li><Link href="#project" className="hover:underline underline-offset-2">Projects</Link></li>
             <li><Link href="#about" className="hover:underline underline-offset-2">Info</Link></li>
             <li><Link href="#contact" className="hover:underline underline-offset-2">Contact Me</Link></li>
