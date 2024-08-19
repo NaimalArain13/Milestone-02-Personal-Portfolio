@@ -10,7 +10,7 @@ export default function Home() {
   //   img: "/image.jpg",
   // };
   return (
-    <div className="bg-bg min-h-screen w-auto">
+    <div className="bg-bg min-h-screen w-auto md:w-full">
       <div>
         <HeroSection />
       </div>

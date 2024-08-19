@@ -26,14 +26,14 @@ export default function HeroSection() {
           />
         </div>
         <div className="text-text2 flex flex-col items-center justify-center pt-6">
-          <p className="text-5xl font-bold text-center leading-snug">
+          <p className="text-3xl md:5xl font-bold text-center leading-snug">
             Designing Websites
             <br />
             that drive Conversions
           </p>
         </div>
         <div className="text-text2 flex flex-col items-center justify-center pt-6">
-          <p className="text-xl  text-center leading-snug">
+          <p className="text-lg md:text-xl  text-center leading-snug">
            <b>AIM</b> to Design and develop visually stunning
             <br />
             and technically proficient websites for
