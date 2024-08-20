@@ -42,8 +42,8 @@ export default function ProjectCard({ prop }: { prop: Props }) {
         className="w-full h-[65%] pb-4 pt-1 rounded-2xl rounded-b-2xl transition-transform hover:scale-95"
       />
       <Link href={prop.route} className="group block">
-        <div className="pl-5 pt-2 flex items-center  justify-between">
-          <div className="pb-3 space-y-5">
+        <div className="pl-5 pt-1 flex items-center  justify-between">
+          <div className="pb-3 space-y-2">
             <h1 className="text-2xl text-text2 font-bold">{prop.title}</h1>
             <p className="text-text2 text-md ">{prop.description}</p>
           </div>
