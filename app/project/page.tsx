@@ -39,6 +39,18 @@ export default function Project() {
       description: "A Simple Hello World Application build with nextjs and styled with Tailwind",
       route: "//nextjs-react-milestones.vercel.app/",
     },
+    {
+      img: "/tech.png",
+      title: "Tech Store",
+      description: "A Techbook store that leverages the react context api for global state management.",
+      route: "//naimal-arain-milestone-03-e-commerce-website.vercel.app/",
+    },
+    {
+      img: "/resume.png",
+      title: "Interactive and Dynamic Resume Builder",
+      description: "A resume builder build with core technology, HTML, CSS, Typescript",
+      route: "//hackathon-interative-resume-builder.vercel.app/",
+    },
   ];
 
   return (

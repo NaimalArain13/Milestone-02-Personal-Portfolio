@@ -13,9 +13,9 @@ interface Props {
   route: string;
 }
 export default function ProjectCard({ prop }: { prop: Props }) {
-  useEffect(() => {
-    AOS.init({});
-  }, []);
+  useEffect(()=>{
+    AOS.init()
+  },[])
   return (
     <div
       className="w-full h-[350px] sm:h-[400px] border-1  bg-text rounded-lg px-1"

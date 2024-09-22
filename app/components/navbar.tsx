@@ -9,7 +9,7 @@ export default function Navbar() {
   return (
     <header className="bg-bg top-0 z-10 sticky w-full transition-transform shadow-xl text-text2 py-3 px-5 flex items-center justify-between">
       <Link href="/">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 justify-between">
           <h1 className="text-3xl font-bold italic text-text2">NA</h1>
           
         </div>
@@ -33,7 +33,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <nav className="absolute top-16 left-0 right-0 bg-text text-center">
+        <nav className="absolute top-16 left-0 right-0 bg-text flex text-center">
           <ul className="flex flex-col gap-4 py-4 text-text2">
             <li><Link href="#project" className="hover:underline underline-offset-2">Projects</Link></li>
             <li><Link href="#about" className="hover:underline underline-offset-2">Info</Link></li>
