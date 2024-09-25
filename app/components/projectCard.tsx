@@ -18,7 +18,7 @@ export default function ProjectCard({ prop }: { prop: Props }) {
   },[])
   return (
     <div
-      className="w-full h-[350px] sm:h-[400px] border-1  bg-text rounded-lg px-1"
+      className="w-full h-[420px] sm:h-[400px] border-1  bg-text rounded-lg px-1"
       data-aos="fade-up"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="1500"
