@@ -16,10 +16,22 @@ export default function Project() {
       route: "//blog-platform-by-na.vercel.app/",
     },
     {
-      img: "/num2.png",
-      title: "Number Guessing CLI",
-      description: "Interactive CLI game to guess numbers, built with TypeScript.",
-      route: "//github.com/NaimalArain13/number-guessing-game13",
+      img: "/tech.png",
+      title: "Tech Store",
+      description: "A Techbook store that leverages the react context api for global state management.",
+      route: "//naimal-arain-milestone-03-e-commerce-website.vercel.app/",
+    },
+    {
+      img: "/resume.png",
+      title: "Interactive and Dynamic Resume Builder",
+      description: "A resume builder build with core technology, HTML, CSS, Typescript",
+      route: "//hackathon-interative-resume-builder.vercel.app/",
+    },
+    {
+      img: "/e-learn.png",
+      title: "E-Learn platform UI",
+      description: "An education learning platform UI build with nextjs, tailwind, shadcn and many more.",
+      route: "//naimal-educational-learning-platform-assignment02-milestone02.vercel.app/",
     },
     {
       img: "/todo2.png",
@@ -34,22 +46,16 @@ export default function Project() {
       route: "//github.com/NaimalArain13/cli-ATM-Project",
     },
     {
+      img: "/num2.png",
+      title: "Number Guessing CLI",
+      description: "Interactive CLI game to guess numbers, built with TypeScript.",
+      route: "//github.com/NaimalArain13/number-guessing-game13",
+    },
+    {
       img: "/hello.png",
       title: "Hello_World App",
       description: "A Simple Hello World Application build with nextjs and styled with Tailwind",
       route: "//nextjs-react-milestones.vercel.app/",
-    },
-    {
-      img: "/tech.png",
-      title: "Tech Store",
-      description: "A Techbook store that leverages the react context api for global state management.",
-      route: "//naimal-arain-milestone-03-e-commerce-website.vercel.app/",
-    },
-    {
-      img: "/resume.png",
-      title: "Interactive and Dynamic Resume Builder",
-      description: "A resume builder build with core technology, HTML, CSS, Typescript",
-      route: "//hackathon-interative-resume-builder.vercel.app/",
     },
   ];
 
