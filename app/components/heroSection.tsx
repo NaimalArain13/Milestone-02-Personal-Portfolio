@@ -1,6 +1,7 @@
 import { GoDotFill } from "react-icons/go";
 import Image from "next/image";
 import styles from "./Home.module.css";
+import Link from "next/link";
 
 
 export default function HeroSection() {
@@ -41,7 +42,7 @@ export default function HeroSection() {
             clients worldwide.
           </p>
         </div>{" "}
-        <div className="flex items-center justify-center pt-7"><button className="bg-text text-white py-3 px-7 rounded-md relative"> naimalarain13@gmail.com</button></div>
+        <div className="flex items-center justify-center pt-7"><Link href={"mailto:naimalarain13@gmail.com"} className="bg-text text-white py-3 px-7 rounded-md relative"> naimalarain13@gmail.com</Link></div>
       </div>
   );
 }
