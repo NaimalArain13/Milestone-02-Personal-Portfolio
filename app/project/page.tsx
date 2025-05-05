@@ -22,7 +22,7 @@ export default function Project() {
       route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
     },
     {
-      img: "/exclusive.PNG",
+      img: "/exclusive.png",
       title: "Exclusive",
       description: "Developed this website for the practice of an e-commerce marketplace hackathon.",
       route: "https://naimal-ui-ux-hackathon-preps-full-e-commerce-website.vercel.app/",
