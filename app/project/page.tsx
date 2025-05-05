@@ -10,19 +10,19 @@ export default function Project() {
       route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
     },
     {
-      img: "/impactoM.png",
+      img: "/impactoM.PNG",
       title: "ImpactoMoney",
       description: "A Decentralized Funding project build for Palestinians",
       route: "https://impacto-money.vercel.app/",
     },
     {
-      img: "/snx.png",
+      img: "/snx.PNG",
       title: "SnX by Nash",
       description: "Developed this website in the e-commerce marketplace hackathon using Sanity, Nextjs, Tailwind, Shadcn.",
       route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
     },
     {
-      img: "/bandage.png",
+      img: "/bandage.PNG",
       title: "Bandage",
       description: "Built this project in UI/UX hackathon using Next.js, Tailwind, and Shadcn.",
       route: "https://naimal-ui-ux-hackathon-q2.vercel.app/",
