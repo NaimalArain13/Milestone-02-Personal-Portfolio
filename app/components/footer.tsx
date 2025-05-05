@@ -15,15 +15,15 @@ export default function Footer() {
         <div className="text-lg">
           <p className=" hidden md:block">
             Interested in working with me? Send me a message at {"   "}{" "}
-            <button className="bg-black text-text2 py-3 px-7  rounded-md relative">
+            <Link href={"mailto:naimalarain13@gmail.com"} className="bg-black text-text2 py-3 px-7  rounded-md relative">
               {" "}
               naimalarain13@gmail.com
-            </button>
+            </Link>
           </p>
-          <button className="bg-black text-text2 py-3 px-7  rounded-md relative md:hidden">
+          <Link href={"mailto:naimalarain13@gmail.com"} className="bg-black text-text2 py-3 px-7  rounded-md relative md:hidden">
               {" "}
               naimalarain13@gmail.com
-            </button>
+            </Link>
         </div>
       </div>
     </div>
