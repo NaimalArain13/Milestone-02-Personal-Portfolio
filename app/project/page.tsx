@@ -47,7 +47,7 @@ export default function Project() {
     },
     {
       img: "/resume.png",
-      title: "Interactive and Dynamic Resume Builder",
+      title: "Interactive Resume Builder",
       description: "A resume builder build with core technology, HTML, CSS, Typescript",
       route: "//hackathon-interative-resume-builder.vercel.app/",
     },
@@ -70,7 +70,7 @@ export default function Project() {
   return (
     
     <div className="bg-bg py-8 text-text2">
-      <h1 className="flex items-center justify-center pt-8 text-5xl font-bold tracking-widest text-text2">
+      <h1 className="flex items-center justify-center p-6 pt-2 text-5xl font-bold tracking-widest text-text2">
         Featured Projects
       </h1>
 

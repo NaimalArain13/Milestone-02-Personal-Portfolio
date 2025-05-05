@@ -37,12 +37,12 @@ export default function About() {
             </div>
           </div> 
           <div
-            className="h-[355px] w-full md:w-[755px] border-neutral-600 text-text2 bg-text rounded-3xl"
+            className="h-[400px] w-full md:w-[755px] border-neutral-600 text-text2 bg-text rounded-3xl"
             data-aos="fade-up"
             data-aos-easing="ease-out-cubic"
             data-aos-duration="1500"
           >
-            <p className=" pt-9 px-14 tracking-wider text-md">
+            <p className=" pt-9 px-3 md:px-14 tracking-wider text-md">
               I am Naimal Salahuddin.
               <br />
               <br />I&#39;m an emerging  fullstack  developer with hands-on experience in various projects, continuously enhancing my expertise in Full-Stack Development. Over the past 1.5 years, I&#39;ve been learning and refining my skills in full-stack technologies through various hands-on projects. I have a foundational understanding of AI too, having completed a basic course in the field. 
