@@ -34,7 +34,7 @@ export default function Project() {
       route: "https://naimal-ui-ux-hackathon-q2.vercel.app/",
     },
     {
-      img: "/blog2.png",
+      img: "/blog.png",
       title: "Dynamic Blog Platform",
       description: "Responsive blog platform for writing and sharing articles.",
       route: "//blog-platform-by-na.vercel.app/",
