@@ -10,6 +10,24 @@ export default function Project() {
       route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
     },
     {
+      img: "/impactoM.png",
+      title: "ImpactoMoney",
+      description: "A Decentralized Funding project build for Palestinians",
+      route: "https://impacto-money.vercel.app/",
+    },
+    {
+      img: "/snx.png",
+      title: "SnX by Nash",
+      description: "Developed this website in the e-commerce marketplace hackathon using Sanity, Nextjs, Tailwind, Shadcn.",
+      route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
+    },
+    {
+      img: "/bandage.png",
+      title: "Bandage",
+      description: "Built this project in UI/UX hackathon using Next.js, Tailwind, and Shadcn.",
+      route: "https://naimal-ui-ux-hackathon-q2.vercel.app/",
+    },
+    {
       img: "/blog2.png",
       title: "Dynamic Blog Platform",
       description: "Responsive blog platform for writing and sharing articles.",
@@ -39,25 +57,9 @@ export default function Project() {
       description: "Task management app to organize and track daily activities.",
       route: "//my-todo-app-green.vercel.app/",
     },
-    {
-      img: "/atm2.png",
-      title: "ATM CLI",
-      description: "Command-line ATM simulation with essential banking operations.",
-      route: "//github.com/NaimalArain13/cli-ATM-Project",
-    },
-    {
-      img: "/num2.png",
-      title: "Number Guessing CLI",
-      description: "Interactive CLI game to guess numbers, built with TypeScript.",
-      route: "//github.com/NaimalArain13/number-guessing-game13",
-    },
-    {
-      img: "/hello.png",
-      title: "Hello_World App",
-      description: "A Simple Hello World Application build with nextjs and styled with Tailwind",
-      route: "//nextjs-react-milestones.vercel.app/",
-    },
+   
   ];
+  
 
   return (
     
