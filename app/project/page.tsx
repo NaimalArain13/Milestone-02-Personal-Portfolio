@@ -5,7 +5,7 @@ export default function Project() {
   const projects = [
 
     {
-      img: "/room.jpg",
+      img: "/room-matcher.png",
       title: "Room Matcher AI",
       description: "An AI powered room matcher multi-agent System.",
       route: "https://room-matcher-ai-rosy.vercel.app/",
