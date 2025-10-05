@@ -3,6 +3,13 @@ import ProjectCard from "../components/projectCard";
 
 export default function Project() {
   const projects = [
+
+    {
+      img: "/room.png",
+      title: "Room Matcher AI",
+      description: "An AI powered room matcher multi-agent System.",
+      route: "https://room-matcher-ai-rosy.vercel.app/",
+    },
     {
       img: "/nasa.png",
       title: "Nasa AI",
