@@ -4,7 +4,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Link from "next/link";
 import { MdArrowOutward } from "react-icons/md";
-import { GoDotFill } from "react-icons/go";
 import { useEffect } from "react";
 interface Props {
   title: string;
@@ -18,40 +17,31 @@ export default function ProjectCard({ prop }: { prop: Props }) {
   },[])
   return (
     <div
-      className="w-full h-[420px]  border-1  bg-text rounded-lg px-1"
+      className="w-full bg-white rounded-lg shadow-md overflow-hidden group transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl"
       data-aos="fade-up"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="1500"
     >
-      <div className="flex flex-row pl-2">
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
+      <div className="relative w-full h-48 overflow-hidden"> {/* Landscape image aspect ratio */}
+        <Image
+          src={`${prop.img}`}
+          alt={prop.title}
+          layout="fill"
+          objectFit="cover"
+          className="transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
-      <Image
-        src={`${prop.img}`}
-        alt={""}
-        height={0}
-        width={1440}
-        className="w-full h-[65%] pb-4 pt-1 rounded-2xl rounded-b-2xl transition-transform hover:scale-95"
-      />
-      <Link href={prop.route} className="group block">
-        <div className="pl-5 pt-1 flex items-center  justify-between">
-          <div className="pb-3 space-y-2">
-            <h1 className="text-2xl text-text2 font-bold">{prop.title}</h1>
-            <p className="text-text2 text-md ">{prop.description}</p>
+      <div className="p-5">
+        <Link href={prop.route} className="block">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-xl text-charcoal font-bold group-hover:text-dark-grey transition-colors duration-300">{prop.title}</h1>
+            <div className="transform transition-transform duration-300 group-hover:rotate-45">
+              <MdArrowOutward className="text-charcoal text-2xl" />
+            </div>
           </div>
-          <div className="transform transition-transform pr-2 duration-300 group-hover:rotate-45">
-            <MdArrowOutward className="text-white" />
-          </div>
-        </div>
-      </Link>
+        </Link>
+        <p className="text-dark-grey text-sm">{prop.description}</p>
+      </div>
     </div>
   );
 }

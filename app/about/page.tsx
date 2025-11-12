@@ -4,56 +4,50 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 
-
 export default function About() {
   useEffect(() => {
     AOS.init({});
   }, []);
 
   return (
-    <div className="bg-bg py-8 text-text2">
-      <div>
-        <h1 className="flex justify-center pt-8 pb-16 text-5xl font-bold tracking-widest text-text2">
+    <section className="bg-white py-16 text-charcoal" id="about">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-center text-4xl font-bold mb-12">
           About Me
-        </h1>
-      </div>
-      <div>
-      <div className="space-y-4">
-        <div className="flex flex-col items-center justify-center gap-3">
-         <div
-            className="h-[300px] w-[300px] md:w-[455px]  border-neutral-600 bg-text rounded-3xl"
-            data-aos="flip-up"
-            data-aos-easing="ease-out-cubic"
-            data-aos-duration="1500"
-          >
-            <div className="flex justify-center items-center pt-16">
-            <Image
-            src={"/dp.jpg"}
-            alt="Profile Picture"
-            width={150} 
-            height={0} 
-            className="rounded-full shadow-lg h-auto"
-          />
-            </div>
-          </div> 
-          <div
-            className="h-[400px] w-full md:w-[755px] border-neutral-600 text-text2 bg-text rounded-3xl"
-            data-aos="fade-up"
-            data-aos-easing="ease-out-cubic"
-            data-aos-duration="1500"
-          >
-            <p className=" pt-9 px-3 md:px-14 tracking-wider text-md">
-              I am Naimal Salahuddin.
-              <br />
-              <br />I&#39;m an emerging  fullstack  developer with hands-on experience in various projects, continuously enhancing my expertise in Full-Stack Development. Over the past 1.5 years, I&#39;ve been learning and refining my skills in full-stack technologies through various hands-on projects. I have a foundational understanding of AI too, having completed a basic course in the field. 
-            </p>
-          </div>
-          
-        </div>
+        </h2>
 
-        
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
+          <div className="flex-shrink-0" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="1500">
+            <Image
+              src={"/dp.jpg"}
+              alt="Profile Picture"
+              width={250}
+              height={250}
+              className="rounded-full shadow-lg object-cover w-64 h-64"
+            />
+          </div>
+          <div className="flex-grow text-dark-grey space-y-6" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="1500">
+            <p className="text-lg leading-relaxed">
+              I am Naimal Salahuddin. I&#39;m an emerging fullstack developer with hands-on experience in various projects, continuously enhancing my expertise in Full-Stack Development. Over the past 1.5 years, I&#39;ve been learning and refining my skills in full-stack technologies through various hands-on projects. I have a foundational understanding of AI too, having completed a basic course in the field.
+            </p>
+            <p className="text-lg leading-relaxed">
+              My passion lies in designing and developing visually stunning and technically proficient websites that drive conversions and deliver exceptional user experiences. I am currently working on a startup project based in the US, further expanding my professional experience.
+            </p>
+            {/* Placeholder for Key Skills/Expertise */}
+            <div>
+              <h3 className="text-2xl font-semibold text-charcoal mb-4">Key Skills & Expertise</h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-md">
+                <li>• Frontend Development (React, Next.js, Tailwind CSS)</li>
+                <li>• Backend Development (Node.js, Express.js)</li>
+                <li>• Database Management (MongoDB, PostgreSQL)</li>
+                <li>• UI/UX Design Principles</li>
+                <li>• Responsive Web Design</li>
+                <li>• Basic AI Concepts</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
