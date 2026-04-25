@@ -16,8 +16,7 @@ export default function VantaGlobe() {
       vantaEffect.current = null;
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore — vanta has no TypeScript definitions
+    // @ts-ignore
     import("vanta/dist/vanta.halo.min.js").then((VANTA) => {
       if (!vantaRef.current) return;
       vantaEffect.current = VANTA.default({
