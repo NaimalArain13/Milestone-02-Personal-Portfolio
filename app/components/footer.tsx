@@ -5,7 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-border pt-12 pb-8 text-primary">
+    <footer className="bg-bg border-t border-border pt-12 pb-8 text-primary">
       <div className="max-w-7xl mx-auto px-6 md:px-[clamp(20px,6vw,110px)]">
         {/* Contact banner */}
         <div className="bg-surface rounded-2xl py-8 px-10 text-center mb-10">
@@ -13,7 +13,7 @@ export default function Footer() {
             Interested in working together?{" "}
             <Link
               href="mailto:naimalarain13@gmail.com"
-              className="inline-block bg-primary text-white py-2 px-6 rounded-md hover:bg-accent transition-colors duration-300 ml-2"
+              className="inline-block bg-primary text-bg py-2 px-6 rounded-md hover:bg-accent transition-colors duration-300 ml-2"
             >
               naimalarain13@gmail.com
             </Link>

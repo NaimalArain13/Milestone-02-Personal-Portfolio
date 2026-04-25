@@ -40,14 +40,14 @@ const servicePreviews = [
 
 export default function Home() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-bg min-h-screen">
       <Chat backendUrl={process.env.AGENT_BASEURL as string} />
 
       {/* Hero */}
       <HeroSection />
 
       {/* About */}
-      <section className="py-24 px-6 md:px-[clamp(20px,6vw,110px)] bg-white">
+      <section className="py-24 px-6 md:px-[clamp(20px,6vw,110px)] bg-bg">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
           <Image
             src="/dp.jpg"
@@ -60,14 +60,14 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-primary mb-4">
               About Me
             </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              I&apos;m Naimal Salahuddin — an emerging full-stack developer and AI engineer with 1.5+ years of hands-on
+            <p className="text-lg text-muted leading-relaxed">
+              I&apos;m Naimal Salahuddin — an emerging full-stack developer and AI engineer with 2+ years of hands-on
               experience building web applications and intelligent systems. I specialise in Next.js, React, TypeScript,
               and the OpenAI Agents SDK, with a growing focus on multi-agent pipelines and conversational AI.
             </p>
             <Link
               href="/contact"
-              className="mt-6 inline-block border-2 border-primary text-primary px-6 py-2.5 font-semibold hover:bg-primary hover:text-white transition-all duration-300 rounded-md text-sm"
+              className="mt-6 inline-block border-2 border-primary text-primary px-6 py-2.5 font-semibold hover:bg-primary hover:text-bg transition-all duration-300 rounded-md text-sm"
             >
               Get in touch →
             </Link>
@@ -85,7 +85,7 @@ export default function Home() {
               <Link
                 key={title}
                 href={href}
-                className="group bg-white rounded-xl p-6 hover:bg-accent transition-colors duration-300"
+                className="group bg-bg rounded-xl p-6 hover:bg-accent transition-colors duration-300"
               >
                 <p className="font-semibold text-primary group-hover:text-white transition-colors duration-300">
                   {title}
@@ -105,7 +105,7 @@ export default function Home() {
       </section>
 
       {/* Featured projects */}
-      <section className="py-24 px-6 md:px-[clamp(20px,6vw,110px)] bg-white">
+      <section className="py-24 px-6 md:px-[clamp(20px,6vw,110px)] bg-bg">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-primary mb-4">
             Featured Projects
@@ -137,7 +137,7 @@ export default function Home() {
         </p>
         <Link
           href="/contact"
-          className="inline-block bg-primary text-white px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
+          className="inline-block bg-primary text-bg px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
         >
           Start a conversation
         </Link>

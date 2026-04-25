@@ -4,7 +4,8 @@ import "./globals.css";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
 import Cursor from "./components/cursor";
-import GlobalBackground from "./components/globalBackground";
+import GlobalBackground from "./components/background animations/globalBackground";
+import ThemeProvider from "./components/themeProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -25,11 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${dmSans.variable} font-sans`}>
-        <GlobalBackground />
-        <Navbar />
-        {children}
-        <Footer />
-        <Cursor />
+        <ThemeProvider>
+          <GlobalBackground />
+          <Navbar />
+          {children}
+          <Footer />
+          <Cursor />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -72,7 +72,7 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <main className="bg-white min-h-screen pt-32 pb-20 px-6 md:px-[clamp(20px,6vw,110px)]">
+    <main className="bg-bg min-h-screen pt-32 pb-20 px-6 md:px-[clamp(20px,6vw,110px)]">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-primary mb-4">
           Projects

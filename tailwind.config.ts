@@ -6,15 +6,16 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        bg:      "#ffffff",
-        surface: "#f5f5f5",
-        primary: "#000000",
-        muted:   "#bbbbbb",
-        accent:  "#00aae3",
-        border:  "#e5e5e5",
+        bg:      "rgb(var(--color-bg) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        muted:   "rgb(var(--color-muted) / <alpha-value>)",
+        accent:  "rgb(var(--color-accent) / <alpha-value>)",
+        border:  "rgb(var(--color-border) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],

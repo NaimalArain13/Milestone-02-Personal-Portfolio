@@ -47,9 +47,14 @@ export default function AnimatedStripes({ children }: { children?: React.ReactNo
       const count = Math.ceil(diagonal / totalW) + 2;
       const start = -count * totalW + (offset % totalW);
 
+      const isDark = document.documentElement.classList.contains("dark");
       for (let i = 0; i < count * 2; i++) {
         const x = start + i * totalW;
-        ctx.fillStyle = "#dadada";
+        // Base: accent color (#00d4ff dark / #00aae3 light)
+        // Alternate: one tone darker of the same accent
+        ctx.fillStyle = i % 2 === 0
+          ? (isDark ? "rgba(0,212,255,0.15)" : "rgba(0,170,227,0.20)")
+          : (isDark ? "rgba(0,153,204,0.12)" : "rgba(0,122,163,0.15)");
         ctx.fillRect(x, -diagonal, stripeW, diagonal * 2);
       }
       ctx.restore();

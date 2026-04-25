@@ -5,7 +5,7 @@ import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
 
 export default function TechStack() {
   return (
-    <div className="overflow-hidden w-full bg-white py-20">
+    <div className="overflow-hidden w-full bg-bg py-20">
       <h2 className="text-center text-4xl md:text-5xl font-bold tracking-tight text-primary mb-16">
         Tech Stack
       </h2>

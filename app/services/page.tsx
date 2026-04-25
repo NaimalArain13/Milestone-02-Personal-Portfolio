@@ -1,5 +1,5 @@
 import Link from "next/link";
-import AnimatedStripes from "../components/animatedStripes";
+import AnimatedStripes from "../components/background animations/animatedStripes";
 import ServiceCard from "../components/serviceCard";
 
 const services = [
@@ -37,7 +37,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <main className="bg-white min-h-screen">
+    <main className="bg-bg min-h-screen">
       {/* Page header */}
       <section className="pt-32 pb-16 px-6 md:px-[clamp(20px,6vw,110px)]">
         <div className="max-w-6xl mx-auto">
@@ -53,7 +53,7 @@ export default function ServicesPage() {
       {/* Animated stripes section */}
       <AnimatedStripes>
         <div className="max-w-6xl mx-auto px-6 md:px-[clamp(20px,6vw,110px)] text-center">
-          <p className="text-2xl md:text-3xl font-semibold text-primary/80">
+          <p className="text-2xl md:text-3xl font-semibold text-primary">
             Strategy. Design. Technology.
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function ServicesPage() {
         <p className="text-muted mb-8">Let&apos;s talk about your project.</p>
         <Link
           href="/contact"
-          className="inline-block bg-primary text-white px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
+          className="inline-block bg-primary text-bg px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
         >
           Get in touch
         </Link>

@@ -6,9 +6,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Light theme tokens */
+:root {
+  --color-bg:      255 255 255;
+  --color-surface: 245 245 245;
+  --color-primary: 0 0 0;
+  --color-muted:   187 187 187;
+  --color-accent:  0 170 227;
+  --color-border:  229 229 229;
+}
+
+/* Dark theme tokens — Option B: Deep Navy */
+.dark {
+  --color-bg:      10 15 30;
+  --color-surface: 17 24 39;
+  --color-primary: 226 232 240;
+  --color-muted:   100 116 139;
+  --color-accent:  0 212 255;
+  --color-border:  30 41 59;
+}
+
 body {
-  background: #fff;
-  color: #000;
+  background: rgb(var(--color-bg));
+  color: rgb(var(--color-primary));
 }
 
 h1, h2, h3, h4 {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import VantaFog from "./background animations/vantaFogBg";
 
 gsap.registerPlugin(useGSAP);
 
@@ -49,8 +50,10 @@ export default function HeroSection() {
   });
 
   return (
-    <section className="min-h-screen flex items-center px-6 md:px-[clamp(20px,6vw,110px)] pt-24 pb-16 bg-white">
-      <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
+    <section className="relative min-h-screen flex items-center px-6 md:px-[clamp(20px,6vw,110px)] pt-24 pb-16 overflow-hidden">
+      {/* Vanta fog — sits behind all content, navbar (z-50) stays on top */}
+      {/* <VantaFog /> */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 md:gap-20">
 
         {/* Left — text */}
         <div className="flex-1 min-w-0">
@@ -88,13 +91,13 @@ export default function HeroSection() {
           <div className="mt-10 flex flex-wrap gap-4">
             <Link
               href="/projects"
-              className="inline-block bg-primary text-white px-8 py-3.5 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
+              className="inline-block bg-primary text-bg px-8 py-3.5 font-semibold hover:bg-accent transition-colors duration-300 rounded-md"
             >
               View Projects
             </Link>
             <Link
               href="/contact"
-              className="inline-block border-2 border-primary text-primary px-8 py-3.5 font-semibold hover:bg-primary hover:text-white transition-all duration-300 rounded-md"
+              className="inline-block border-2 border-primary text-primary px-8 py-3.5 font-semibold hover:bg-primary hover:text-bg transition-all duration-300 rounded-md"
             >
               Get in Touch
             </Link>
@@ -111,7 +114,7 @@ export default function HeroSection() {
               className="object-cover object-top"
             />
             {/* Subtle overlay label */}
-            <div className="absolute bottom-4 left-4 right-4 bg-white/80 backdrop-blur-sm rounded-xl px-4 py-3">
+            <div className="absolute bottom-4 left-4 right-4 bg-bg/90 backdrop-blur-sm rounded-xl px-4 py-3">
               <p className="text-sm font-semibold text-primary">Naimal Salahuddin</p>
               <p className="text-xs text-muted">Full-Stack Dev &amp; AI Engineer</p>
             </div>

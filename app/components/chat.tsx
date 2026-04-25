@@ -51,7 +51,7 @@ export default function Chat({ backendUrl }: { backendUrl: string }) {
           </svg>
         </button>
       ) : (
-        <div className="w-80 sm:w-96 h-[28rem] bg-white rounded-xl shadow-2xl border border-border flex flex-col overflow-hidden">
+        <div className="w-80 sm:w-96 h-[28rem] bg-bg rounded-xl shadow-2xl border border-border flex flex-col overflow-hidden">
           <div className="px-4 py-3 bg-[#00aae3] text-white flex items-center justify-between">
             <div className="font-semibold text-sm sm:text-base">Ask me anything about Naimal!</div>
             <button
@@ -75,7 +75,7 @@ export default function Chat({ backendUrl }: { backendUrl: string }) {
                   className={
                     (m.role === "user"
                       ? "bg-[#00aae3] text-white rounded-t-2xl rounded-l-2xl"
-                      : "bg-white text-primary border border-border rounded-t-2xl rounded-r-2xl") +
+                      : "bg-bg text-primary border border-border rounded-t-2xl rounded-r-2xl") +
                     " px-3 py-2 shadow-sm max-w-[80%] whitespace-pre-wrap text-sm"
                   }
                 >
@@ -85,7 +85,7 @@ export default function Chat({ backendUrl }: { backendUrl: string }) {
             ))}
           </div>
 
-          <div className="p-3 border-t border-border bg-white">
+          <div className="p-3 border-t border-border bg-bg">
             <div className="flex items-end gap-2">
               <textarea
                 value={text}
@@ -98,7 +98,7 @@ export default function Chat({ backendUrl }: { backendUrl: string }) {
                 }}
                 placeholder="Type your message..."
                 rows={2}
-                className="flex-1 resize-none rounded-lg border border-border p-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#00aae3] max-h-32 min-h-[44px]"
+                className="flex-1 resize-none rounded-lg border border-border bg-surface p-2 text-sm text-primary focus:outline-none focus:ring-2 focus:ring-[#00aae3] max-h-32 min-h-[44px]"
               />
               <button
                 type="button"
