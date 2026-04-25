@@ -1,44 +1,98 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { FiMenu, FiX } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import { useTheme } from "next-themes";
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="bg-bg top-0 z-10 sticky w-full transition-transform shadow-xl text-text2 py-3 px-5 flex items-center justify-between">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-[clamp(20px,6vw,110px)] py-4 flex items-center justify-between ${
+        scrolled ? "bg-bg shadow-sm" : "bg-transparent"
+      }`}
+    >
       <Link href="/">
-        <div className="flex items-center space-x-4 justify-between">
-          <h1 className="text-3xl font-bold italic text-text2">NA</h1>
-          
-        </div>
+        <span className="text-2xl font-bold text-primary">NA</span>
       </Link>
 
-      {/* Hidden on mobile, shown on larger screens */}
-      <nav className="hidden md:flex gap-14">
-        <ul className="flex gap-14 font-semibold">
-          <li><Link href="#project" className="hover:underline underline-offset-2">Projects</Link></li>
-          <li><Link href="#about" className="hover:underline underline-offset-2">Info</Link></li>
-          <li><Link href="#contact" className="hover:underline underline-offset-2">Contact Me</Link></li>
-        </ul>
+      {/* Desktop nav */}
+      <nav className="hidden md:flex items-center gap-10">
+        {[
+          { label: "Projects", href: "/projects" },
+          { label: "Services", href: "/services" },
+          { label: "Contact",  href: "/contact"  },
+        ].map(({ label, href }) => (
+          <Link
+            key={href}
+            href={href}
+            className="text-lg font-semibold text-primary border-t-4 border-transparent hover:border-accent hover:text-accent transition-all duration-200 pt-2"
+          >
+            {label}
+          </Link>
+        ))}
+
+        {/* Theme toggle */}
+        {mounted && (
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+            className="text-primary hover:text-accent transition-colors duration-200 pt-2"
+          >
+            {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+          </button>
+        )}
       </nav>
 
-      {/* Menu button for mobile view */}
-      <div className="md:hidden">
-        <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
+      {/* Mobile right side */}
+      <div className="md:hidden flex items-center gap-4">
+        {mounted && (
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label="Toggle theme"
+            className="text-primary hover:text-accent transition-colors duration-200"
+          >
+            {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+          </button>
+        )}
+        <button
+          className="text-primary"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
+        >
           {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {isOpen && (
-        <nav className="absolute top-16 left-0 right-0 bg-text flex text-center justify-center">
-          <ul className="flex flex-col gap-4 py-4 text-text2">
-            <li><Link href="#project" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Projects</Link></li>
-            <li><Link href="#about" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Info</Link></li>
-            <li><Link href="#contact" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Contact Me</Link></li>
-          </ul>
+        <nav className="absolute top-full left-0 right-0 bg-bg border-t border-border shadow-sm flex flex-col items-center py-6 gap-6">
+          {[
+            { label: "Projects", href: "/projects" },
+            { label: "Services", href: "/services" },
+            { label: "Contact",  href: "/contact"  },
+          ].map(({ label, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className="text-base font-semibold text-primary hover:text-accent transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
       )}
     </header>

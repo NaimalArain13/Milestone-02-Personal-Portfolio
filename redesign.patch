@@ -1,0 +1,1639 @@
+From a4dc55582d0d1e89298b7e2774813a0140f29497 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sat, 25 Apr 2026 18:35:58 +0000
+Subject: [PATCH] Redesign portfolio to light-themed multi-route site
+
+- Replace dark theme with minimalist white/cyan design system
+- Add 4-route structure: /, /projects, /services, /contact
+- Add GSAP custom cursor with ring + dot and hover states
+- Add canvas animated stripes section on Services page
+- Migrate all projects from old single-page to /projects route
+- Create Services page with 6 service blocks
+- Rebuild Contact page with form and info section
+- Update Navbar with scroll-triggered bg and new links
+- Replace Inter with DM Sans font
+- Create chat.tsx widget (previously missing)
+
+https://claude.ai/code/session_0151ZfH1Fu7Evi367bzwRtVF
+---
+ .gitignore                         |   2 +
+ app/about/page.tsx                 |  59 ------------
+ app/components/Home.module.css     |  39 --------
+ app/components/animatedStripes.tsx |  72 ++++++++++++++
+ app/components/autoSroll.tsx       |  54 +++--------
+ app/components/chat.tsx            |  37 ++++++++
+ app/components/cursor.tsx          |  61 ++++++++++++
+ app/components/footer.tsx          |  71 +++++++-------
+ app/components/heroSection.tsx     |  72 ++++++--------
+ app/components/navbar.tsx          |  65 +++++++++----
+ app/components/projectCard.tsx     |  60 +++++-------
+ app/components/serviceCard.tsx     |  13 +++
+ app/contact/page.tsx               | 117 ++++++++++++++++++-----
+ app/globals.css                    |  77 +++++++++------
+ app/layout.tsx                     |  14 ++-
+ app/page.tsx                       | 146 +++++++++++++++++++++++------
+ app/project/page.tsx               |  92 ------------------
+ app/projects/page.tsx              |  89 ++++++++++++++++++
+ app/services/page.tsx              |  63 +++++++++++++
+ lib/utils.ts                       |  10 +-
+ package-lock.json                  |  18 ++++
+ package.json                       |   2 +
+ tailwind.config.ts                 |  18 ++--
+ 23 files changed, 791 insertions(+), 460 deletions(-)
+ delete mode 100644 app/about/page.tsx
+ delete mode 100644 app/components/Home.module.css
+ create mode 100644 app/components/animatedStripes.tsx
+ create mode 100644 app/components/chat.tsx
+ create mode 100644 app/components/cursor.tsx
+ create mode 100644 app/components/serviceCard.tsx
+ delete mode 100644 app/project/page.tsx
+ create mode 100644 app/projects/page.tsx
+ create mode 100644 app/services/page.tsx
+
+diff --git a/.gitignore b/.gitignore
+index fd3dbb5..b9f8d23 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -34,3 +34,5 @@ yarn-error.log*
+ # typescript
+ *.tsbuildinfo
+ next-env.d.ts
++
++.env
+\ No newline at end of file
+diff --git a/app/about/page.tsx b/app/about/page.tsx
+deleted file mode 100644
+index 66f4e81..0000000
+--- a/app/about/page.tsx
++++ /dev/null
+@@ -1,59 +0,0 @@
+-"use client";
+-import Image from "next/image";
+-import AOS from "aos";
+-import "aos/dist/aos.css";
+-import { useEffect } from "react";
+-
+-
+-export default function About() {
+-  useEffect(() => {
+-    AOS.init({});
+-  }, []);
+-
+-  return (
+-    <div className="bg-bg py-8 text-text2">
+-      <div>
+-        <h1 className="flex justify-center pt-8 pb-16 text-5xl font-bold tracking-widest text-text2">
+-          About Me
+-        </h1>
+-      </div>
+-      <div>
+-      <div className="space-y-4">
+-        <div className="flex flex-col items-center justify-center gap-3">
+-         <div
+-            className="h-[300px] w-[300px] md:w-[455px]  border-neutral-600 bg-text rounded-3xl"
+-            data-aos="flip-up"
+-            data-aos-easing="ease-out-cubic"
+-            data-aos-duration="1500"
+-          >
+-            <div className="flex justify-center items-center pt-16">
+-            <Image
+-            src={"/dp.jpg"}
+-            alt="Profile Picture"
+-            width={150} 
+-            height={0} 
+-            className="rounded-full shadow-lg h-auto"
+-          />
+-            </div>
+-          </div> 
+-          <div
+-            className="h-[400px] w-full md:w-[755px] border-neutral-600 text-text2 bg-text rounded-3xl"
+-            data-aos="fade-up"
+-            data-aos-easing="ease-out-cubic"
+-            data-aos-duration="1500"
+-          >
+-            <p className=" pt-9 px-3 md:px-14 tracking-wider text-md">
+-              I am Naimal Salahuddin.
+-              <br />
+-              <br />I&#39;m an emerging  fullstack  developer with hands-on experience in various projects, continuously enhancing my expertise in Full-Stack Development. Over the past 1.5 years, I&#39;ve been learning and refining my skills in full-stack technologies through various hands-on projects. I have a foundational understanding of AI too, having completed a basic course in the field. 
+-            </p>
+-          </div>
+-          
+-        </div>
+-
+-        
+-        </div>
+-      </div>
+-    </div>
+-  );
+-}
+\ No newline at end of file
+diff --git a/app/components/Home.module.css b/app/components/Home.module.css
+deleted file mode 100644
+index 52a9e1a..0000000
+--- a/app/components/Home.module.css
++++ /dev/null
+@@ -1,39 +0,0 @@
+-
+-/* Home.module.css */
+-.typewriter {
+-    display: inline-block;
+-    overflow: hidden; /* Ensures the text reveals itself */
+-    white-space: nowrap; /* Prevents text from wrapping */
+-    border-right: 0.15em solid rgba(211, 242, 252, 0.75); /* Cursor effect */
+-    animation: typing 4s steps(40, end) infinite, blink-caret 0.75s step-end infinite, colorChange 4s ease-in-out infinite;
+-  }
+-  
+-  @keyframes typing {
+-    from {
+-      width: 0;
+-    }
+-    to {
+-      width: 90%; /* Ensure it expands to full width */
+-    }
+-  }
+-  
+-  @keyframes blink-caret {
+-    from, to {
+-      border-color: transparent;
+-    }
+-    50% {
+-      border-color: rgba(255, 255, 255, 0.75);
+-    }
+-  }
+-  
+-  @keyframes colorChange {
+-    0% {
+-      color: rgba(247, 250, 250, 0.75); /* Initial color */
+-    }
+-    50% {
+-      color: #043d4b; /* Midpoint color */
+-    }
+-    70% {
+-      color: rgba(238, 250, 252, 0.76); /* End color */
+-    }
+-  }
+\ No newline at end of file
+diff --git a/app/components/animatedStripes.tsx b/app/components/animatedStripes.tsx
+new file mode 100644
+index 0000000..4cf72bb
+--- /dev/null
++++ b/app/components/animatedStripes.tsx
+@@ -0,0 +1,72 @@
++"use client"
++import { useRef, useEffect } from "react"
++
++export default function AnimatedStripes({ children }: { children?: React.ReactNode }) {
++  const canvasRef = useRef<HTMLCanvasElement>(null)
++  const mouse = useRef({ x: 0.5, y: 0.5 })
++
++  useEffect(() => {
++    const canvas = canvasRef.current!
++    const ctx = canvas.getContext("2d")!
++    let raf: number
++    let offset = 0
++
++    const resize = () => {
++      canvas.width  = canvas.offsetWidth
++      canvas.height = canvas.offsetHeight
++    }
++    resize()
++    window.addEventListener("resize", resize)
++
++    const onMove = (e: MouseEvent) => {
++      mouse.current = {
++        x: e.clientX / window.innerWidth,
++        y: e.clientY / window.innerHeight,
++      }
++    }
++    window.addEventListener("mousemove", onMove)
++
++    const draw = () => {
++      const { width: w, height: h } = canvas
++      ctx.clearRect(0, 0, w, h)
++
++      const angle = Math.PI / 4 + (mouse.current.x - 0.5) * 0.4
++
++      const stripeW   = 36
++      const stripeGap = 36
++      const totalW    = stripeW + stripeGap
++      const diagonal  = Math.sqrt(w * w + h * h)
++
++      ctx.save()
++      ctx.translate(w / 2, h / 2)
++      ctx.rotate(angle)
++
++      const count = Math.ceil(diagonal / totalW) + 2
++      const start = -count * totalW + (offset % totalW)
++
++      for (let i = 0; i < count * 2; i++) {
++        const x = start + i * totalW
++        ctx.fillStyle = "#dadada"
++        ctx.fillRect(x, -diagonal, stripeW, diagonal * 2)
++      }
++      ctx.restore()
++
++      offset += 0.6
++      raf = requestAnimationFrame(draw)
++    }
++    draw()
++
++    return () => {
++      cancelAnimationFrame(raf)
++      window.removeEventListener("resize", resize)
++      window.removeEventListener("mousemove", onMove)
++    }
++  }, [])
++
++  return (
++    <div className="relative w-full overflow-hidden bg-surface py-20">
++      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60" />
++      <div className="relative z-10">{children}</div>
++    </div>
++  )
++}
+diff --git a/app/components/autoSroll.tsx b/app/components/autoSroll.tsx
+index f5ba7ef..7d8184c 100644
+--- a/app/components/autoSroll.tsx
++++ b/app/components/autoSroll.tsx
+@@ -10,48 +10,24 @@ export default function TechStack() {
+   return (
+     <div className="overflow-hidden w-full">
+       <div>
+-        <h1 className="flex justify-center pt-24 pb-16 text-5xl font-bold tracking-widest text-text2">
++        <h1 className="flex justify-center pt-24 pb-16 text-5xl font-bold tracking-tight text-black">
+           Tech Stack
+         </h1>
+       </div>
+-      <div className="flex justify-center items-center bg-text py-6">
+-        <div className="flex space-x-32 text-5xl text-neutral-500 animate-auto-scroll whitespace-nowrap">
+-          <p className="text-blue-600 ">
+-            <FaCss3Alt size={60} />
+-          </p>
+-          <p className="text-orange-400 ">
+-            <FaHtml5 size={60} />
+-          </p>
+-          <p className="text-yellow-500 ">
+-            <IoLogoJavascript size={60} />
+-          </p>
+-          <p className="text-black ">
+-            <RiNextjsFill size={60} />
+-          </p>
+-          <p className="text-blue-800 ">
+-            <FaPython size={60} />
+-          </p>
+-          <p className="text-blue-500 ">
+-            <RiTailwindCssFill size={60} />
+-          </p>
+-          <p className="text-blue-600 ">
+-            <FaCss3Alt size={60} />
+-          </p>
+-          <p className="text-orange-400 ">
+-            <FaHtml5 size={60} />
+-          </p>
+-          <p className="text-yellow-500 ">
+-            <IoLogoJavascript size={60} />
+-          </p>
+-          <p className="text-black ">
+-            <RiNextjsFill size={60} />
+-          </p>
+-          <p className="text-blue-800 ">
+-            <FaPython size={60} />
+-          </p>
+-          <p className="text-blue-500 ">
+-            <RiTailwindCssFill size={60} />
+-          </p>
++      <div className="flex justify-center items-center bg-surface py-6">
++        <div className="flex space-x-32 text-5xl text-gray-400 animate-auto-scroll whitespace-nowrap">
++          <p><FaCss3Alt size={60} /></p>
++          <p><FaHtml5 size={60} /></p>
++          <p><IoLogoJavascript size={60} /></p>
++          <p><RiNextjsFill size={60} /></p>
++          <p><FaPython size={60} /></p>
++          <p><RiTailwindCssFill size={60} /></p>
++          <p><FaCss3Alt size={60} /></p>
++          <p><FaHtml5 size={60} /></p>
++          <p><IoLogoJavascript size={60} /></p>
++          <p><RiNextjsFill size={60} /></p>
++          <p><FaPython size={60} /></p>
++          <p><RiTailwindCssFill size={60} /></p>
+         </div>
+       </div>
+     </div>
+diff --git a/app/components/chat.tsx b/app/components/chat.tsx
+new file mode 100644
+index 0000000..751f6e6
+--- /dev/null
++++ b/app/components/chat.tsx
+@@ -0,0 +1,37 @@
++"use client"
++import { useState } from "react"
++import { FiMessageSquare, FiX } from "react-icons/fi"
++
++export default function Chat({ backendUrl }: { backendUrl?: string }) {
++  const [open, setOpen] = useState(false)
++
++  return (
++    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
++      {open && (
++        <div className="bg-white border border-border rounded-2xl shadow-xl w-80 p-6">
++          <p className="text-sm font-semibold text-black mb-1">Chat with me</p>
++          <p className="text-xs text-muted mb-4">
++            {backendUrl
++              ? "Send a message and I'll get back to you."
++              : "Drop me a message at naimalarain13@gmail.com"}
++          </p>
++          <textarea
++            rows={3}
++            placeholder="Type your message..."
++            className="w-full border border-border rounded-lg px-3 py-2 text-sm resize-none focus:border-accent focus:outline-none focus:ring-2 focus:ring-[#00aae3]/30"
++          />
++          <button className="mt-3 w-full bg-[#00aae3] hover:bg-[#0099cc] text-white text-sm font-semibold py-2 rounded-lg transition-colors">
++            Send
++          </button>
++        </div>
++      )}
++      <button
++        onClick={() => setOpen(!open)}
++        aria-label="Toggle chat"
++        className="bg-[#00aae3] hover:bg-[#0099cc] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[#00aae3]/50"
++      >
++        {open ? <FiX size={20} /> : <FiMessageSquare size={20} />}
++      </button>
++    </div>
++  )
++}
+diff --git a/app/components/cursor.tsx b/app/components/cursor.tsx
+new file mode 100644
+index 0000000..1567818
+--- /dev/null
++++ b/app/components/cursor.tsx
+@@ -0,0 +1,61 @@
++"use client"
++import { useRef } from "react"
++import gsap from "gsap"
++import { useGSAP } from "@gsap/react"
++
++gsap.registerPlugin(useGSAP)
++
++export default function Cursor() {
++  const ringRef = useRef<HTMLDivElement>(null)
++  const dotRef  = useRef<HTMLDivElement>(null)
++
++  const { contextSafe } = useGSAP(() => {
++    const xRing = gsap.quickTo(ringRef.current, "x", { duration: 0.5, ease: "power3" })
++    const yRing = gsap.quickTo(ringRef.current, "y", { duration: 0.5, ease: "power3" })
++    const xDot  = gsap.quickTo(dotRef.current,  "x", { duration: 0.08 })
++    const yDot  = gsap.quickTo(dotRef.current,  "y", { duration: 0.08 })
++
++    const onMove = (e: MouseEvent) => {
++      xRing(e.clientX); yRing(e.clientY)
++      xDot(e.clientX);  yDot(e.clientY)
++    }
++    window.addEventListener("mousemove", onMove)
++    return () => window.removeEventListener("mousemove", onMove)
++  })
++
++  useGSAP(() => {
++    const scaleUp   = contextSafe(() => gsap.to(ringRef.current, { scale: 1.8, duration: 0.3, ease: "power2.out" }))
++    const scaleLg   = contextSafe(() => gsap.to(ringRef.current, { scale: 2.5, duration: 0.3, ease: "power2.out" }))
++    const scaleDown = contextSafe(() => gsap.to(ringRef.current, { scale: 1,   duration: 0.3, ease: "power2.out" }))
++    const press     = contextSafe(() => gsap.to(ringRef.current, { scale: 0.8, duration: 0.1 }))
++    const release   = contextSafe(() => gsap.to(ringRef.current, { scale: 1,   duration: 0.15 }))
++
++    const over = (e: MouseEvent) => {
++      const t = e.target as HTMLElement
++      if (t.closest(".project-card")) scaleLg()
++      else if (t.closest("a, button")) scaleUp()
++    }
++    const out = (e: MouseEvent) => {
++      const t = e.target as HTMLElement
++      if (t.closest(".project-card") || t.closest("a, button")) scaleDown()
++    }
++
++    document.addEventListener("mouseover",  over)
++    document.addEventListener("mouseout",   out)
++    document.addEventListener("mousedown",  press)
++    document.addEventListener("mouseup",    release)
++    return () => {
++      document.removeEventListener("mouseover",  over)
++      document.removeEventListener("mouseout",   out)
++      document.removeEventListener("mousedown",  press)
++      document.removeEventListener("mouseup",    release)
++    }
++  })
++
++  return (
++    <>
++      <div ref={ringRef} className="cursor-ring" />
++      <div ref={dotRef}  className="cursor-dot"  />
++    </>
++  )
++}
+diff --git a/app/components/footer.tsx b/app/components/footer.tsx
+index 06837da..57dd43a 100644
+--- a/app/components/footer.tsx
++++ b/app/components/footer.tsx
+@@ -2,46 +2,45 @@ import Link from "next/link";
+ import Image from "next/image";
+ import { FaLinkedin, FaGithub } from "react-icons/fa6";
+ import { FaFacebook } from "react-icons/fa";
+-// import UpsideFooter from "./upFooter";
+ 
+ export default function Footer() {
+   return (
+-    <footer className="bg-bg py-8 text-text2">
+-      <div className="max-w-7xl max-h-20xl h-full mx-auto text-center space-y-8">
+-        {/* Contact Information */}
+-        <div className="bg-text py-6 px-10 text-text2 font-medium border-y-2 border-opacity-5 border-neutral-200 ">
+-      <div className="max-w-5xl mx-auto text-center space-y-6">
+-        {/* Contact Information */}
+-        <div className="text-lg">
+-          <p className=" hidden md:block">
+-            Interested in working with me? Send me a message at {"   "}{" "}
+-            <Link href={"mailto:naimalarain13@gmail.com"} className="bg-black text-text2 py-3 px-7  rounded-md relative">
+-              {" "}
+-              naimalarain13@gmail.com
+-            </Link>
+-          </p>
+-          <Link href={"mailto:naimalarain13@gmail.com"} className="bg-black text-text2 py-3 px-7  rounded-md relative md:hidden">
+-              {" "}
+-              naimalarain13@gmail.com
+-            </Link>
++    <footer className="bg-white border-t border-border py-8">
++      <div className="max-w-7xl mx-auto text-center space-y-8">
++        <div className="bg-surface py-6 px-10">
++          <div className="max-w-5xl mx-auto text-center space-y-6">
++            <div className="text-lg">
++              <p className="hidden md:block text-muted">
++                Interested in working with me? Send me a message at{" "}
++                <Link
++                  href="mailto:naimalarain13@gmail.com"
++                  className="border border-black text-black py-2 px-5 rounded-md hover:bg-black hover:text-white transition-colors"
++                >
++                  naimalarain13@gmail.com
++                </Link>
++              </p>
++              <Link
++                href="mailto:naimalarain13@gmail.com"
++                className="border border-black text-black py-2 px-5 rounded-md hover:bg-black hover:text-white transition-colors md:hidden"
++              >
++                naimalarain13@gmail.com
++              </Link>
++            </div>
++          </div>
+         </div>
+-      </div>
+-    </div>
+ 
+-        {/* Navigation Links */}
+         <div className="justify-center gap-6 text-md grid grid-cols-1 md:grid-rows-1 lg:flex">
+-          <Link href="/about" className="hover:scale-95">
+-            About
++          <Link href="/services" className="text-muted hover:text-accent transition-colors">
++            Services
+           </Link>
+-          <Link href="/project" className="hover:scale-95">
+-            Project
++          <Link href="/projects" className="text-muted hover:text-accent transition-colors">
++            Projects
+           </Link>
+-          <Link href="/contact" className="hover:scale-95">
+-           Contact
++          <Link href="/contact" className="text-muted hover:text-accent transition-colors">
++            Contact
+           </Link>
+         </div>
+ 
+-        {/* Logo or Image */}
+         <div className="flex justify-center">
+           <Image
+             src="/dp.jpg"
+@@ -52,35 +51,33 @@ export default function Footer() {
+           />
+         </div>
+ 
+-        {/* Social Media Links */}
+-        <div className="flex justify-center space-x-6 text-3xl ">
++        <div className="flex justify-center space-x-6 text-3xl">
+           <Link
+             href="//www.facebook.com/profile.php?id=100081783813071"
+             aria-label="Facebook"
+-            className="hover:text-white"
++            className="text-muted hover:text-accent transition-colors"
+           >
+             <FaFacebook />
+           </Link>
+           <Link
+             href="//www.linkedin.com/in/naimal-arain-/"
+             aria-label="LinkedIn"
+-            className="hover:text-white"
++            className="text-muted hover:text-accent transition-colors"
+           >
+             <FaLinkedin />
+           </Link>
+           <Link
+             href="//github.com/NaimalArain13"
+             aria-label="GitHub"
+-            className="hover:text-white"
++            className="text-muted hover:text-accent transition-colors"
+           >
+             <FaGithub />
+           </Link>
+         </div>
+ 
+-        {/* Copyright Information */}
+-        <div className="text-sm pb-2 font-medium">
++        <div className="text-sm pb-2 font-medium text-muted">
+           All rights reserved. &copy; Copyright{" "}
+-          <Link href="/">
++          <Link href="/" className="hover:text-accent transition-colors">
+             Naimal Salahuddin
+           </Link>{" "}
+           2024
+diff --git a/app/components/heroSection.tsx b/app/components/heroSection.tsx
+index bc8c447..caf1059 100644
+--- a/app/components/heroSection.tsx
++++ b/app/components/heroSection.tsx
+@@ -1,50 +1,36 @@
+-import { GoDotFill } from "react-icons/go";
+ import Image from "next/image";
+-import styles from "./Home.module.css";
+ import Link from "next/link";
+ 
+-
+ export default function HeroSection() {
+-  
+   return (
+-      <div className=" w-full text-neutral-300">
+-        <div className="flex justify-center pt-10">
+-          <button className="bg-text border-cyan-100  border-y-2 divide-x-0 space-x-2 rounded-l-full py-[0.5rem] text-sm flex items-center justify-center text-neutral-300 rounded-r-full px-4">
+-            <p className="text-yellow-300">
+-              <GoDotFill />{" "}
+-       
+-            </p>
+-            <p className={`${styles.typewriter}`}>It&#39;s me <b>Naimal Salahuddin</b></p>
+-          </button>
+-        </div>
+-        <div className="flex justify-center bg-bg pt-7">
+-          <Image
+-            src={"/dp.jpg"}
+-            width={70}
+-            height={0}
+-            alt=""
+-            className="rounded-full w-auto"
+-          />
+-        </div>
+-        <div className="text-text2 flex flex-col items-center justify-center pt-6">
+-          <p className="text-2xl md:text-5xl font-bold text-center leading-snug">
+-            Designing Websites
+-            <br />
+-            that drive Conversions
+-          </p>
+-        </div>
+-        <div className="text-text2 flex flex-col items-center justify-center pt-6">
+-          <p className="text-md md:text-xl  text-center leading-snug">
+-           <b>AIM</b> to Design and develop visually stunning
+-            <br />
+-            and technically proficient websites for
+-            <br />
+-            clients worldwide.
+-          </p>
+-        </div>{" "}
+-        <div className="flex items-center justify-center pt-7"><Link href={"mailto:naimalarain13@gmail.com"} className="bg-text text-white py-3 px-7 rounded-md relative"> naimalarain13@gmail.com</Link></div>
+-      </div>
++    <div className="w-full flex flex-col items-center text-center pt-36 pb-24 px-6">
++      <span className="inline-flex items-center gap-2 bg-surface rounded-full px-4 py-1.5 text-sm text-muted mb-6">
++        <span className="w-2 h-2 rounded-full bg-green-400 inline-block" />
++        Available for work
++      </span>
++
++      <Image
++        src="/dp.jpg"
++        width={96}
++        height={96}
++        alt="Naimal Salahuddin"
++        className="w-24 h-24 rounded-full object-cover mx-auto mb-6"
++      />
++
++      <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-black text-center leading-tight max-w-4xl">
++        Designing Websites<br />that drive Conversions
++      </h1>
++
++      <p className="text-xl text-muted font-medium text-center max-w-xl mx-auto mt-4">
++        Full-stack developer building visually stunning and technically proficient web experiences.
++      </p>
++
++      <Link
++        href="/contact"
++        className="mt-8 inline-block border-2 border-black text-black px-8 py-3 font-semibold hover:bg-black hover:text-white transition-all duration-300"
++      >
++        Get in touch
++      </Link>
++    </div>
+   );
+ }
+-   
+-
+diff --git a/app/components/navbar.tsx b/app/components/navbar.tsx
+index 26fc5df..6029577 100644
+--- a/app/components/navbar.tsx
++++ b/app/components/navbar.tsx
+@@ -1,44 +1,69 @@
+ "use client";
+ import Link from "next/link";
+-import { useState } from "react";
++import { useState, useEffect } from "react";
+ import { FiMenu, FiX } from "react-icons/fi";
+ 
+ export default function Navbar() {
+   const [isOpen, setIsOpen] = useState(false);
++  const [scrolled, setScrolled] = useState(false);
++
++  useEffect(() => {
++    const onScroll = () => setScrolled(window.scrollY > 10);
++    window.addEventListener("scroll", onScroll);
++    return () => window.removeEventListener("scroll", onScroll);
++  }, []);
+ 
+   return (
+-    <header className="bg-bg top-0 z-10 sticky w-full transition-transform shadow-xl text-text2 py-3 px-5 flex items-center justify-between">
++    <header
++      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-[clamp(20px,6vw,110px)] py-4 flex items-center justify-between ${
++        scrolled ? "bg-white shadow-sm" : "bg-transparent"
++      }`}
++    >
+       <Link href="/">
+-        <div className="flex items-center space-x-4 justify-between">
+-          <h1 className="text-3xl font-bold italic text-text2">NA</h1>
+-          
+-        </div>
++        <h1 className="text-2xl font-bold text-black">NA</h1>
+       </Link>
+ 
+-      {/* Hidden on mobile, shown on larger screens */}
+-      <nav className="hidden md:flex gap-14">
+-        <ul className="flex gap-14 font-semibold">
+-          <li><Link href="#project" className="hover:underline underline-offset-2">Projects</Link></li>
+-          <li><Link href="#about" className="hover:underline underline-offset-2">Info</Link></li>
+-          <li><Link href="#contact" className="hover:underline underline-offset-2">Contact Me</Link></li>
++      <nav className="hidden md:flex gap-10">
++        <ul className="flex gap-10">
++          {[
++            { label: "Projects", href: "/projects" },
++            { label: "Services", href: "/services" },
++            { label: "Contact",  href: "/contact"  },
++          ].map(({ label, href }) => (
++            <li key={href}>
++              <Link
++                href={href}
++                className="text-sm font-semibold text-black border-t-4 border-transparent hover:border-accent hover:text-accent pt-2 transition-all duration-200"
++              >
++                {label}
++              </Link>
++            </li>
++          ))}
+         </ul>
+       </nav>
+ 
+-      {/* Menu button for mobile view */}
+       <div className="md:hidden">
+         <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle Menu">
+           {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+         </button>
+       </div>
+ 
+-      {/* Mobile Menu */}
+       {isOpen && (
+-        <nav className="absolute top-16 left-0 right-0 bg-text flex text-center justify-center">
+-          <ul className="flex flex-col gap-4 py-4 text-text2">
+-            <li><Link href="#project" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Projects</Link></li>
+-            <li><Link href="#about" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Info</Link></li>
+-            <li><Link href="#contact" className="hover:underline underline-offset-2" onClick={() => setIsOpen(false)}>Contact Me</Link></li>
+-          </ul>
++        <nav className="absolute top-full left-0 right-0 bg-white border-t border-border flex flex-col items-center py-4 gap-4">
++          {[
++            { label: "Projects", href: "/projects" },
++            { label: "Services", href: "/services" },
++            { label: "Contact",  href: "/contact"  },
++          ].map(({ label, href }) => (
++            <Link
++              key={href}
++              href={href}
++              className="text-sm font-semibold text-black hover:text-accent transition-colors"
++              onClick={() => setIsOpen(false)}
++            >
++              {label}
++            </Link>
++          ))}
+         </nav>
+       )}
+     </header>
+diff --git a/app/components/projectCard.tsx b/app/components/projectCard.tsx
+index d0b1876..51f2a75 100644
+--- a/app/components/projectCard.tsx
++++ b/app/components/projectCard.tsx
+@@ -4,54 +4,46 @@ import AOS from "aos";
+ import "aos/dist/aos.css";
+ import Link from "next/link";
+ import { MdArrowOutward } from "react-icons/md";
+-import { GoDotFill } from "react-icons/go";
+ import { useEffect } from "react";
++
+ interface Props {
+   title: string;
+   description: string;
+   img: string;
+   route: string;
+ }
++
+ export default function ProjectCard({ prop }: { prop: Props }) {
+-  useEffect(()=>{
+-    AOS.init()
+-  },[])
++  useEffect(() => {
++    AOS.init();
++  }, []);
++
+   return (
+-    <div
+-      className="w-full h-[420px]  border-1  bg-text rounded-lg px-1"
++    <Link
++      href={prop.route}
++      className="group block project-card"
+       data-aos="fade-up"
+       data-aos-easing="ease-out-cubic"
+       data-aos-duration="1500"
+     >
+-      <div className="flex flex-row pl-2">
+-        <p className="text-bg">
+-          <GoDotFill />
+-        </p>
+-        <p className="text-bg">
+-          <GoDotFill />
+-        </p>
+-        <p className="text-bg">
+-          <GoDotFill />
+-        </p>
++      <div className="aspect-[4/3] overflow-hidden rounded-lg bg-surface">
++        <Image
++          src={prop.img}
++          alt={prop.title}
++          height={0}
++          width={1440}
++          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-105"
++        />
+       </div>
+-      <Image
+-        src={`${prop.img}`}
+-        alt={""}
+-        height={0}
+-        width={1440}
+-        className="w-full h-[65%] pb-4 pt-1 rounded-2xl rounded-b-2xl transition-transform hover:scale-95"
+-      />
+-      <Link href={prop.route} className="group block">
+-        <div className="pl-5 pt-1 flex items-center  justify-between">
+-          <div className="pb-3 space-y-2">
+-            <h1 className="text-2xl text-text2 font-bold">{prop.title}</h1>
+-            <p className="text-text2 text-md ">{prop.description}</p>
+-          </div>
+-          <div className="transform transition-transform pr-2 duration-300 group-hover:rotate-45">
+-            <MdArrowOutward className="text-white" />
+-          </div>
++      <div className="mt-4 space-y-1 flex items-start justify-between">
++        <div>
++          <h2 className="text-xl font-semibold text-black">{prop.title}</h2>
++          <p className="text-sm text-muted">{prop.description}</p>
+         </div>
+-      </Link>
+-    </div>
++        <div className="transform transition-transform duration-300 group-hover:rotate-45 mt-1 shrink-0">
++          <MdArrowOutward className="text-black" />
++        </div>
++      </div>
++    </Link>
+   );
+ }
+diff --git a/app/components/serviceCard.tsx b/app/components/serviceCard.tsx
+new file mode 100644
+index 0000000..221d5fc
+--- /dev/null
++++ b/app/components/serviceCard.tsx
+@@ -0,0 +1,13 @@
++interface ServiceProps {
++  title: string
++  description: string
++}
++
++export default function ServiceCard({ title, description }: ServiceProps) {
++  return (
++    <div className="bg-surface p-8 rounded-lg hover:bg-accent hover:text-white transition-colors duration-300 group">
++      <h3 className="text-xl font-semibold mb-3">{title}</h3>
++      <p className="text-sm leading-relaxed text-muted group-hover:text-white/90">{description}</p>
++    </div>
++  )
++}
+diff --git a/app/contact/page.tsx b/app/contact/page.tsx
+index 4b23e1c..d3c9c1d 100644
+--- a/app/contact/page.tsx
++++ b/app/contact/page.tsx
+@@ -1,30 +1,105 @@
+ import Link from "next/link";
++import { FaLinkedin, FaGithub } from "react-icons/fa6";
++import { FaFacebook } from "react-icons/fa";
++import { MdEmail } from "react-icons/md";
+ 
+-export default function Contact() {
++export default function ContactPage() {
+   return (
+-    <section className="bg-bg py-8 text-text2">
+-      <div>
+-        <h1 className="flex justify-center pt-8 pb-16 text-5xl font-bold tracking-widest text-text2">
+-          Contact Me
++    <main className="bg-white pt-32 pb-20 px-6 md:px-[clamp(20px,6vw,110px)]">
++      <div className="max-w-5xl mx-auto">
++        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-black mb-4">
++          Let&apos;s Talk.
+         </h1>
+-      </div>
+-      <div className="flex items-center justify-center">
+-      <div
+-            className="h-[200px] w-full md:w-[480px] border-neutral-600 bg-text rounded-3xl hover:animate-pulse hover:bg-gradient-to-br from-button1 to-button2"
+-            data-aos="flip-up"
+-            data-aos-easing="ease-out-cubic"
+-            data-aos-duration="1500"
++        <p className="text-lg text-muted mb-16">
++          Have a project in mind? Reach out at{" "}
++          <Link
++            href="mailto:naimalarain13@gmail.com"
++            className="text-accent hover:underline underline-offset-4"
+           >
+-            <div className="flex justify-center items-center pt-16 hover:animate-pulse rounded-3xl">
+-              <Link href='mailto:naimalarain13@gmail.com'>
+-              <button className="bg-stone-950 border-neutral-200 border-y-1 rounded-l-full rounded-r-full text-lg flex items-center justify-center font-bold text-text2 py-4 px-14">
+-                <p>Get in Touch</p>
+-              </button>
+-              </Link>
++            naimalarain13@gmail.com
++          </Link>
++        </p>
++
++        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
++          {/* Contact form */}
++          <form className="bg-surface rounded-2xl p-8 md:p-10 space-y-4">
++            <div>
++              <label className="block text-sm font-semibold text-black mb-1">Name</label>
++              <input
++                type="text"
++                placeholder="Your name"
++                className="border border-border rounded-lg px-4 py-3 w-full focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 text-sm"
++              />
++            </div>
++            <div>
++              <label className="block text-sm font-semibold text-black mb-1">Email</label>
++              <input
++                type="email"
++                placeholder="your@email.com"
++                className="border border-border rounded-lg px-4 py-3 w-full focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 text-sm"
++              />
++            </div>
++            <div>
++              <label className="block text-sm font-semibold text-black mb-1">Message</label>
++              <textarea
++                rows={5}
++                placeholder="Tell me about your project..."
++                className="border border-border rounded-lg px-4 py-3 w-full resize-none focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 text-sm"
++              />
++            </div>
++            <button
++              type="submit"
++              className="w-full bg-black text-white px-8 py-3 font-semibold hover:bg-accent transition-colors duration-300"
++            >
++              Send Message
++            </button>
++          </form>
++
++          {/* Contact info */}
++          <div className="space-y-8">
++            <div>
++              <h2 className="text-2xl font-bold text-black mb-4">Contact Info</h2>
++              <div className="space-y-4">
++                <Link
++                  href="mailto:naimalarain13@gmail.com"
++                  className="flex items-center gap-3 text-muted hover:text-accent transition-colors"
++                >
++                  <MdEmail size={20} />
++                  <span className="text-sm">naimalarain13@gmail.com</span>
++                </Link>
++                <Link
++                  href="//github.com/NaimalArain13"
++                  className="flex items-center gap-3 text-muted hover:text-accent transition-colors"
++                >
++                  <FaGithub size={20} />
++                  <span className="text-sm">github.com/NaimalArain13</span>
++                </Link>
++                <Link
++                  href="//www.linkedin.com/in/naimal-arain-/"
++                  className="flex items-center gap-3 text-muted hover:text-accent transition-colors"
++                >
++                  <FaLinkedin size={20} />
++                  <span className="text-sm">linkedin.com/in/naimal-arain-</span>
++                </Link>
++                <Link
++                  href="//www.facebook.com/profile.php?id=100081783813071"
++                  className="flex items-center gap-3 text-muted hover:text-accent transition-colors"
++                >
++                  <FaFacebook size={20} />
++                  <span className="text-sm">Facebook</span>
++                </Link>
++              </div>
++            </div>
++
++            <div className="bg-surface rounded-2xl p-6">
++              <p className="text-sm font-semibold text-black mb-2">Response Time</p>
++              <p className="text-sm text-muted">
++                I typically respond within 24 hours. For urgent inquiries, email is the fastest way to reach me.
++              </p>
+             </div>
+           </div>
++        </div>
+       </div>
+-     
+-    </section>
++    </main>
+   );
+-}
+\ No newline at end of file
++}
+diff --git a/app/globals.css b/app/globals.css
+index d29264d..efa15cd 100644
+--- a/app/globals.css
++++ b/app/globals.css
+@@ -2,47 +2,28 @@
+ @tailwind components;
+ @tailwind utilities;
+ 
+-/* :root {
+-  --foreground-rgb: 0, 0, 0;
+-  --background-start-rgb: 214, 219, 220;
+-  --background-end-rgb: 255, 255, 255;
++html {
++  scroll-behavior: smooth;
+ }
+ 
+-@media (prefers-color-scheme: dark) {
+-  :root {
+-    --foreground-rgb: 255, 255, 255;
+-    --background-start-rgb: 0, 0, 0;
+-    --background-end-rgb: 0, 0, 0;
+-  }
++body {
++  background: #fff;
++  color: #000;
+ }
+ 
+-body {
+-  color: rgb(var(--foreground-rgb));
+-  background: linear-gradient(
+-      to bottom,
+-      transparent,
+-      rgb(var(--background-end-rgb))
+-    )
+-    rgb(var(--background-start-rgb));
+-}
+-
+-@layer utilities {
+-  .text-balance {
+-    text-wrap: balance;
+-  }
+-} */
+-html {
+-  scroll-behavior: smooth;
++h1, h2, h3, h4 {
++  letter-spacing: -0.02em;
+ }
++
+ @keyframes auto-scroll {
+   0% {
+-    transform: translateX(100%); /* Start from off the right side */
++    transform: translateX(100%);
+   }
+   50% {
+-    transform: translateX(-100%); /* Move off the left side */
++    transform: translateX(-100%);
+   }
+   100% {
+-    transform: translateX(100%); /* Return to the original position */
++    transform: translateX(100%);
+   }
+ }
+ 
+@@ -50,4 +31,38 @@ html {
+   animation: auto-scroll 100s linear infinite;
+ }
+ 
+-  
++@media (pointer: fine) {
++  * {
++    cursor: none !important;
++  }
++}
++
++.cursor-ring {
++  position: fixed;
++  top: 0;
++  left: 0;
++  width: 34px;
++  height: 34px;
++  border-radius: 50%;
++  border: 2px solid #fff;
++  mix-blend-mode: difference;
++  pointer-events: none;
++  z-index: 99999;
++  transform: translate(-50%, -50%);
++  will-change: transform;
++}
++
++.cursor-dot {
++  position: fixed;
++  top: 0;
++  left: 0;
++  width: 5px;
++  height: 5px;
++  border-radius: 50%;
++  background: #fff;
++  mix-blend-mode: difference;
++  pointer-events: none;
++  z-index: 99999;
++  transform: translate(-50%, -50%);
++  will-change: transform;
++}
+diff --git a/app/layout.tsx b/app/layout.tsx
+index ac28e98..164dfa1 100644
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -1,10 +1,15 @@
+ import type { Metadata } from "next";
+-import { Inter } from "next/font/google";
++import { DM_Sans } from "next/font/google";
+ import "./globals.css";
+ import Navbar from "./components/navbar";
+ import Footer from "./components/footer";
++import Cursor from "./components/cursor";
+ 
+-const inter = Inter({ subsets: ["latin"] });
++const dmSans = DM_Sans({
++  subsets: ["latin"],
++  weight: ["400", "500", "600", "700"],
++  variable: "--font-dm-sans",
++});
+ 
+ export const metadata: Metadata = {
+   title: "Naimal Salahuddin",
+@@ -18,11 +23,12 @@ export default function RootLayout({
+ }>) {
+   return (
+     <html lang="en">
+-      <body className={inter.className}>
++      <body className={`${dmSans.variable} font-sans cursor-none bg-white`}>
+         <Navbar />
+         {children}
+         <Footer />
+-        </body>
++        <Cursor />
++      </body>
+     </html>
+   );
+ }
+diff --git a/app/page.tsx b/app/page.tsx
+index 4326b6d..b0c46c9 100644
+--- a/app/page.tsx
++++ b/app/page.tsx
+@@ -1,35 +1,127 @@
+-import About from "./about/page";
++import Image from "next/image";
++import Link from "next/link";
+ import HeroSection from "./components/heroSection";
+-import Contact from "./contact/page";
+-import Project from "./project/page";
+-import "./globals.css";
+ import TechStack from "./components/autoSroll";
++import Chat from "./components/chat";
++import ProjectCard from "./components/projectCard";
++
++const featuredProjects = [
++  {
++    img: "/room-matcher.png",
++    title: "Room Matcher AI",
++    description: "An AI powered room matcher multi-agent System.",
++    route: "https://room-matcher-ai-rosy.vercel.app/",
++  },
++  {
++    img: "/nasa.png",
++    title: "Nasa AI",
++    description: "A SaaS platform build with OpenAI & Replicate APIs",
++    route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
++  },
++  {
++    img: "/impactoM.PNG",
++    title: "ImpactoMoney",
++    description: "A Decentralized Funding project build for Palestinians",
++    route: "https://impacto-money.vercel.app/",
++  },
++  {
++    img: "/snx.PNG",
++    title: "SnX by Nash",
++    description: "Developed this website in the e-commerce marketplace hackathon using Sanity, Nextjs, Tailwind, Shadcn.",
++    route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
++  },
++];
++
++const servicePreview = [
++  { title: "Full-Stack Web Development", href: "/services" },
++  { title: "AI Agent Development", href: "/services" },
++  { title: "UI/UX Design & Development", href: "/services" },
++];
+ 
+ export default function Home() {
+-  // const img = {
+-  //   img: "/image.jpg",
+-  // };
+   return (
+-    <div className="bg-bg min-h-screen w-auto md:w-full">
+-      <div>
+-        <HeroSection />
+-      </div>
+-
+-      <div className="pt-20" id="project">
+-        <Project />
+-      </div>
+-
+-      <div className="pt-20" id="about">
+-        <About />
+-      </div>
+-
+-      <div className="pt-20">
+-        <TechStack />
+-      </div>
+-      
+-      <div className="pt-20" id="contact">
+-        <Contact />
+-      </div>
++    <div className="bg-white min-h-screen">
++      <Chat backendUrl={process.env.AGENT_BASEURL as string} />
++
++      {/* Hero */}
++      <HeroSection />
++
++      {/* About intro */}
++      <section className="px-6 md:px-[clamp(20px,6vw,110px)] py-20 max-w-5xl mx-auto flex flex-col md:flex-row gap-10 items-center">
++        <Image
++          src="/dp.jpg"
++          width={160}
++          height={160}
++          alt="Naimal Salahuddin"
++          className="w-40 h-40 rounded-full object-cover shrink-0"
++        />
++        <div>
++          <h2 className="text-3xl font-bold text-black mb-4">About Me</h2>
++          <p className="text-muted leading-relaxed mb-4">
++            I&apos;m Naimal Salahuddin — a full-stack developer with 1.5+ years of hands-on experience
++            building production-ready web apps, AI-powered tools, and e-commerce platforms.
++            I care deeply about clean code, great UX, and delivering real results.
++          </p>
++          <Link href="/contact" className="text-sm font-semibold text-accent hover:underline underline-offset-4">
++            Let&apos;s work together →
++          </Link>
++        </div>
++      </section>
++
++      {/* Services preview */}
++      <section className="px-6 md:px-[clamp(20px,6vw,110px)] py-20 bg-surface">
++        <div className="max-w-5xl mx-auto">
++          <h2 className="text-4xl font-bold text-black mb-2">What I Do</h2>
++          <p className="text-muted mb-10">A few things I build well.</p>
++          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
++            {servicePreview.map(({ title, href }) => (
++              <Link
++                key={title}
++                href={href}
++                className="bg-white p-6 rounded-lg hover:bg-accent hover:text-white transition-colors duration-300 group"
++              >
++                <p className="font-semibold">{title}</p>
++              </Link>
++            ))}
++          </div>
++          <Link href="/services" className="text-sm font-semibold text-accent hover:underline underline-offset-4">
++            View all services →
++          </Link>
++        </div>
++      </section>
++
++      {/* Featured projects */}
++      <section className="px-6 md:px-[clamp(20px,6vw,110px)] py-20">
++        <div className="max-w-5xl mx-auto">
++          <h2 className="text-4xl font-bold text-black mb-2">Featured Projects</h2>
++          <p className="text-muted mb-10">A selection of work I&apos;m proud of.</p>
++          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 mb-8">
++            {featuredProjects.map((p, i) => (
++              <ProjectCard key={i} prop={p} />
++            ))}
++          </div>
++          <Link href="/projects" className="text-sm font-semibold text-accent hover:underline underline-offset-4">
++            View all projects →
++          </Link>
++        </div>
++      </section>
++
++      {/* Tech stack */}
++      <TechStack />
++
++      {/* Contact CTA */}
++      <section className="px-6 md:px-[clamp(20px,6vw,110px)] py-24 text-center bg-surface">
++        <h2 className="text-5xl md:text-6xl font-bold text-black mb-4">Ready to build?</h2>
++        <p className="text-muted text-lg mb-8 max-w-md mx-auto">
++          I&apos;m open to new projects and collaborations. Let&apos;s talk.
++        </p>
++        <Link
++          href="/contact"
++          className="inline-block bg-black text-white px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300"
++        >
++          Get in touch
++        </Link>
++      </section>
+     </div>
+   );
+ }
+diff --git a/app/project/page.tsx b/app/project/page.tsx
+deleted file mode 100644
+index ccb4f3c..0000000
+--- a/app/project/page.tsx
++++ /dev/null
+@@ -1,92 +0,0 @@
+-"use client";
+-import ProjectCard from "../components/projectCard";
+-
+-export default function Project() {
+-  const projects = [
+-
+-    {
+-      img: "/room-matcher.png",
+-      title: "Room Matcher AI",
+-      description: "An AI powered room matcher multi-agent System.",
+-      route: "https://room-matcher-ai-rosy.vercel.app/",
+-    },
+-    {
+-      img: "/nasa.png",
+-      title: "Nasa AI",
+-      description: "A SaaS platform build with OpenAI & Replicate APIs",
+-      route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
+-    },
+-    {
+-      img: "/impactoM.PNG",
+-      title: "ImpactoMoney",
+-      description: "A Decentralized Funding project build for Palestinians",
+-      route: "https://impacto-money.vercel.app/",
+-    },
+-    {
+-      img: "/snx.PNG",
+-      title: "SnX by Nash",
+-      description: "Developed this website in the e-commerce marketplace hackathon using Sanity, Nextjs, Tailwind, Shadcn.",
+-      route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
+-    },
+-    {
+-      img: "/exclusive.png",
+-      title: "Exclusive",
+-      description: "Developed this website for the practice of an e-commerce marketplace hackathon.",
+-      route: "https://naimal-ui-ux-hackathon-preps-full-e-commerce-website.vercel.app/",
+-    },
+-    {
+-      img: "/bandage.PNG",
+-      title: "Bandage",
+-      description: "Built this project in UI/UX hackathon using Next.js, Tailwind, and Shadcn.",
+-      route: "https://naimal-ui-ux-hackathon-q2.vercel.app/",
+-    },
+-    {
+-      img: "/blog.png",
+-      title: "Dynamic Blog Platform",
+-      description: "Responsive blog platform for writing and sharing articles.",
+-      route: "//blog-platform-by-na.vercel.app/",
+-    },
+-    {
+-      img: "/tech.png",
+-      title: "Tech Store",
+-      description: "A Techbook store that leverages the react context api for global state management.",
+-      route: "//naimal-arain-milestone-03-e-commerce-website.vercel.app/",
+-    },
+-    {
+-      img: "/resume.png",
+-      title: "Interactive Resume Builder",
+-      description: "A resume builder build with core technology, HTML, CSS, Typescript",
+-      route: "//hackathon-interative-resume-builder.vercel.app/",
+-    },
+-    {
+-      img: "/e-learn.png",
+-      title: "E-Learn platform UI",
+-      description: "An education learning platform UI build with nextjs, tailwind, shadcn and many more.",
+-      route: "//naimal-educational-learning-platform-assignment02-milestone02.vercel.app/",
+-    },
+-    {
+-      img: "/todo2.png",
+-      title: "Todo App",
+-      description: "Task management app to organize and track daily activities.",
+-      route: "//my-todo-app-green.vercel.app/",
+-    },
+-   
+-  ];
+-  
+-
+-  return (
+-    
+-    <div className="bg-bg py-8 text-text2">
+-      <h1 className="flex items-center justify-center p-6 pt-2 text-5xl font-bold tracking-widest text-text2">
+-        Featured Projects
+-      </h1>
+-
+-      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 p-6">
+-        {projects.map((project, index) => (
+-          <ProjectCard key={index} prop={project} />
+-        ))}
+-      </div>
+-    </div>
+-    
+-  );
+-}
+\ No newline at end of file
+diff --git a/app/projects/page.tsx b/app/projects/page.tsx
+new file mode 100644
+index 0000000..21f3b45
+--- /dev/null
++++ b/app/projects/page.tsx
+@@ -0,0 +1,89 @@
++"use client";
++import ProjectCard from "../components/projectCard";
++
++const projects = [
++  {
++    img: "/room-matcher.png",
++    title: "Room Matcher AI",
++    description: "An AI powered room matcher multi-agent System.",
++    route: "https://room-matcher-ai-rosy.vercel.app/",
++  },
++  {
++    img: "/nasa.png",
++    title: "Nasa AI",
++    description: "A SaaS platform build with OpenAI & Replicate APIs",
++    route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
++  },
++  {
++    img: "/impactoM.PNG",
++    title: "ImpactoMoney",
++    description: "A Decentralized Funding project build for Palestinians",
++    route: "https://impacto-money.vercel.app/",
++  },
++  {
++    img: "/snx.PNG",
++    title: "SnX by Nash",
++    description: "Developed this website in the e-commerce marketplace hackathon using Sanity, Nextjs, Tailwind, Shadcn.",
++    route: "https://naimal-marketplace-hackathon03-q2-finale.vercel.app/",
++  },
++  {
++    img: "/exclusive.png",
++    title: "Exclusive",
++    description: "Developed this website for the practice of an e-commerce marketplace hackathon.",
++    route: "https://naimal-ui-ux-hackathon-preps-full-e-commerce-website.vercel.app/",
++  },
++  {
++    img: "/bandage.PNG",
++    title: "Bandage",
++    description: "Built this project in UI/UX hackathon using Next.js, Tailwind, and Shadcn.",
++    route: "https://naimal-ui-ux-hackathon-q2.vercel.app/",
++  },
++  {
++    img: "/blog.png",
++    title: "Dynamic Blog Platform",
++    description: "Responsive blog platform for writing and sharing articles.",
++    route: "//blog-platform-by-na.vercel.app/",
++  },
++  {
++    img: "/tech.png",
++    title: "Tech Store",
++    description: "A Techbook store that leverages the react context api for global state management.",
++    route: "//naimal-arain-milestone-03-e-commerce-website.vercel.app/",
++  },
++  {
++    img: "/resume.png",
++    title: "Interactive Resume Builder",
++    description: "A resume builder build with core technology, HTML, CSS, Typescript",
++    route: "//hackathon-interative-resume-builder.vercel.app/",
++  },
++  {
++    img: "/e-learn.png",
++    title: "E-Learn platform UI",
++    description: "An education learning platform UI build with nextjs, tailwind, shadcn and many more.",
++    route: "//naimal-educational-learning-platform-assignment02-milestone02.vercel.app/",
++  },
++  {
++    img: "/todo2.png",
++    title: "Todo App",
++    description: "Task management app to organize and track daily activities.",
++    route: "//my-todo-app-green.vercel.app/",
++  },
++];
++
++export default function ProjectsPage() {
++  return (
++    <main className="bg-white pt-32 pb-20 px-6 md:px-[clamp(20px,6vw,110px)]">
++      <div className="max-w-5xl mx-auto">
++        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-black mb-4">
++          Projects
++        </h1>
++        <p className="text-lg text-muted mb-16">A selection of work I&apos;m proud of.</p>
++        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
++          {projects.map((p, i) => (
++            <ProjectCard key={i} prop={p} />
++          ))}
++        </div>
++      </div>
++    </main>
++  );
++}
+diff --git a/app/services/page.tsx b/app/services/page.tsx
+new file mode 100644
+index 0000000..f9138a5
+--- /dev/null
++++ b/app/services/page.tsx
+@@ -0,0 +1,63 @@
++import Link from "next/link";
++import AnimatedStripes from "../components/animatedStripes";
++import ServiceCard from "../components/serviceCard";
++
++const services = [
++  {
++    title: "Full-Stack Web Development",
++    description: "Next.js, React, TypeScript, Tailwind CSS — responsive, production-ready web apps.",
++  },
++  {
++    title: "AI Agent Development",
++    description: "Custom AI agents using OpenAI Agents SDK, multi-agent pipelines, and conversational systems.",
++  },
++  {
++    title: "UI/UX Design & Development",
++    description: "Pixel-perfect interfaces with Shadcn, Figma-to-code, accessible and responsive design systems.",
++  },
++  {
++    title: "E-commerce Solutions",
++    description: "Marketplace builds with Sanity CMS, cart systems, product management, and payment flows.",
++  },
++  {
++    title: "Python & Automation",
++    description: "Streamlit apps, scripting, automation pipelines, and data visualization.",
++  },
++  {
++    title: "Chatbot & Conversational AI",
++    description: "Chainlit chatbots, RAG systems, and context-aware conversational interfaces.",
++  },
++];
++
++export default function ServicesPage() {
++  return (
++    <main className="bg-white pt-32 pb-20">
++      <div className="px-6 md:px-[clamp(20px,6vw,110px)] max-w-5xl mx-auto mb-16">
++        <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-black mb-4">
++          Services.
++        </h1>
++        <p className="text-lg text-muted">What I can build for you.</p>
++      </div>
++
++      <AnimatedStripes />
++
++      <div className="px-6 md:px-[clamp(20px,6vw,110px)] max-w-5xl mx-auto mt-16">
++        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 mb-16">
++          {services.map((s) => (
++            <ServiceCard key={s.title} title={s.title} description={s.description} />
++          ))}
++        </div>
++
++        <div className="text-center">
++          <p className="text-muted mb-6 text-lg">Ready to start your project?</p>
++          <Link
++            href="/contact"
++            className="inline-block bg-black text-white px-10 py-4 font-semibold hover:bg-accent transition-colors duration-300"
++          >
++            Get in touch →
++          </Link>
++        </div>
++      </div>
++    </main>
++  );
++}
+diff --git a/lib/utils.ts b/lib/utils.ts
+index 95b19a8..e08ecbb 100644
+--- a/lib/utils.ts
++++ b/lib/utils.ts
+@@ -1,6 +1,6 @@
+-import { ClassValue, clsx } from "clsx";
+-import { twMerge } from "tailwind-merge";
+- 
+-export function cn(...inputs: ClassValue[]) {
+-  return twMerge(clsx(inputs));
++import { ClassValue, clsx } from "clsx";
++import { twMerge } from "tailwind-merge";
++ 
++export function cn(...inputs: ClassValue[]) {
++  return twMerge(clsx(inputs));
+ }
+\ No newline at end of file
+diff --git a/package-lock.json b/package-lock.json
+index 36bbb17..2569fc9 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -8,9 +8,11 @@
+       "name": "simple-portfolio",
+       "version": "0.1.0",
+       "dependencies": {
++        "@gsap/react": "^2.1.2",
+         "aos": "^2.3.4",
+         "clsx": "^2.1.1",
+         "framer-motion": "^11.3.28",
++        "gsap": "^3.15.0",
+         "next": "14.2.5",
+         "react": "^18",
+         "react-dom": "^18",
+@@ -97,6 +99,16 @@
+         "node": "^12.22.0 || ^14.17.0 || >=16.0.0"
+       }
+     },
++    "node_modules/@gsap/react": {
++      "version": "2.1.2",
++      "resolved": "https://registry.npmjs.org/@gsap/react/-/react-2.1.2.tgz",
++      "integrity": "sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==",
++      "license": "SEE LICENSE AT https://gsap.com/standard-license",
++      "peerDependencies": {
++        "gsap": "^3.12.5",
++        "react": ">=17"
++      }
++    },
+     "node_modules/@humanwhocodes/config-array": {
+       "version": "0.11.14",
+       "resolved": "https://registry.npmjs.org/@humanwhocodes/config-array/-/config-array-0.11.14.tgz",
+@@ -2377,6 +2389,12 @@
+       "integrity": "sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==",
+       "dev": true
+     },
++    "node_modules/gsap": {
++      "version": "3.15.0",
++      "resolved": "https://registry.npmjs.org/gsap/-/gsap-3.15.0.tgz",
++      "integrity": "sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==",
++      "license": "Standard 'no charge' license: https://gsap.com/standard-license."
++    },
+     "node_modules/has-bigints": {
+       "version": "1.0.2",
+       "resolved": "https://registry.npmjs.org/has-bigints/-/has-bigints-1.0.2.tgz",
+diff --git a/package.json b/package.json
+index f21a07f..b969d30 100644
+--- a/package.json
++++ b/package.json
+@@ -9,9 +9,11 @@
+     "lint": "next lint"
+   },
+   "dependencies": {
++    "@gsap/react": "^2.1.2",
+     "aos": "^2.3.4",
+     "clsx": "^2.1.1",
+     "framer-motion": "^11.3.28",
++    "gsap": "^3.15.0",
+     "next": "14.2.5",
+     "react": "^18",
+     "react-dom": "^18",
+diff --git a/tailwind.config.ts b/tailwind.config.ts
+index 1b0e1f7..23fa541 100644
+--- a/tailwind.config.ts
++++ b/tailwind.config.ts
+@@ -14,16 +14,16 @@ const config: Config = {
+           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+       },
+       colors: {
+-        'bg': '#020617',
+-        'text': '#172554',
+-        'text2': '#eef2ff',
+-        'from': '#d1d5db',
+-        'to': '#374151',
+-        'button1':'#084868',
+-        'button2':'#F04393'
++        'bg':      '#ffffff',
++        'surface': '#f5f5f5',
++        'primary': '#000000',
++        'muted':   '#bbbbbb',
++        'accent':  '#00aae3',
++        'border':  '#e5e5e5',
++      },
++      fontFamily: {
++        sans: ['var(--font-dm-sans)', 'system-ui', 'sans-serif'],
+       },
+-      
+-    
+     },
+   },
+   plugins: [],
+-- 
+2.43.0

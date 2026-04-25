@@ -2,52 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
 html {
   scroll-behavior: smooth;
 }
+
+/* Light theme tokens */
+:root {
+  --color-bg:      255 255 255;
+  --color-surface: 245 245 245;
+  --color-primary: 0 0 0;
+  --color-muted:   187 187 187;
+  --color-accent:  0 170 227;
+  --color-border:  229 229 229;
+}
+
+/* Dark theme tokens — Option B: Deep Navy */
+.dark {
+  --color-bg:      10 15 30;
+  --color-surface: 17 24 39;
+  --color-primary: 226 232 240;
+  --color-muted:   100 116 139;
+  --color-accent:  0 212 255;
+  --color-border:  30 41 59;
+}
+
+body {
+  background: rgb(var(--color-bg));
+  color: rgb(var(--color-primary));
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.02em;
+}
+
+/* Hide native cursor on pointer devices */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* GSAP custom cursor — no CSS transform here; GSAP owns transform entirely */
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 99999;
+  will-change: transform;
+}
+
+/* Global background blob animations */
+@keyframes breathe {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.15; }
+}
+
+@keyframes breathe-slow {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.1; }
+}
+
+.animate-breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+.animate-breathe-slow {
+  animation: breathe-slow 12s ease-in-out infinite;
+}
+
+/* Tech stack marquee */
 @keyframes auto-scroll {
   0% {
-    transform: translateX(100%); /* Start from off the right side */
+    transform: translateX(100%);
   }
   50% {
-    transform: translateX(-100%); /* Move off the left side */
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(100%); /* Return to the original position */
+    transform: translateX(100%);
   }
 }
 
 .animate-auto-scroll {
   animation: auto-scroll 100s linear infinite;
 }
-
-  

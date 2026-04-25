@@ -6,24 +6,20 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        'bg': '#020617',
-        'text': '#172554',
-        'text2': '#eef2ff',
-        'from': '#d1d5db',
-        'to': '#374151',
-        'button1':'#084868',
-        'button2':'#F04393'
+        bg:      "rgb(var(--color-bg) / <alpha-value>)",
+        surface: "rgb(var(--color-surface) / <alpha-value>)",
+        primary: "rgb(var(--color-primary) / <alpha-value>)",
+        muted:   "rgb(var(--color-muted) / <alpha-value>)",
+        accent:  "rgb(var(--color-accent) / <alpha-value>)",
+        border:  "rgb(var(--color-border) / <alpha-value>)",
       },
-      
-    
+      fontFamily: {
+        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+      },
     },
   },
   plugins: [],

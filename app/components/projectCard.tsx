@@ -1,55 +1,42 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Link from "next/link";
-import { MdArrowOutward } from "react-icons/md";
-import { GoDotFill } from "react-icons/go";
 import { useEffect } from "react";
+
 interface Props {
   title: string;
   description: string;
   img: string;
   route: string;
 }
+
 export default function ProjectCard({ prop }: { prop: Props }) {
-  useEffect(()=>{
-    AOS.init()
-  },[])
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
     <div
-      className="w-full h-[420px]  border-1  bg-text rounded-lg px-1"
+      className="project-card group block"
       data-aos="fade-up"
       data-aos-easing="ease-out-cubic"
-      data-aos-duration="1500"
+      data-aos-duration="800"
     >
-      <div className="flex flex-row pl-2">
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
-        <p className="text-bg">
-          <GoDotFill />
-        </p>
-      </div>
-      <Image
-        src={`${prop.img}`}
-        alt={""}
-        height={0}
-        width={1440}
-        className="w-full h-[65%] pb-4 pt-1 rounded-2xl rounded-b-2xl transition-transform hover:scale-95"
-      />
-      <Link href={prop.route} className="group block">
-        <div className="pl-5 pt-1 flex items-center  justify-between">
-          <div className="pb-3 space-y-2">
-            <h1 className="text-2xl text-text2 font-bold">{prop.title}</h1>
-            <p className="text-text2 text-md ">{prop.description}</p>
-          </div>
-          <div className="transform transition-transform pr-2 duration-300 group-hover:rotate-45">
-            <MdArrowOutward className="text-white" />
-          </div>
+      <Link href={prop.route} target="_blank" rel="noopener noreferrer">
+        <div className="aspect-[4/3] overflow-hidden rounded-xl bg-surface">
+          <Image
+            src={prop.img}
+            alt={prop.title}
+            height={0}
+            width={1440}
+            className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-105"
+          />
+        </div>
+        <div className="mt-4 space-y-1">
+          <h4 className="text-xl font-semibold text-primary">{prop.title}</h4>
+          <p className="text-sm text-muted">{prop.description}</p>
         </div>
       </Link>
     </div>

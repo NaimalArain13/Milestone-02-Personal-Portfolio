@@ -1,57 +1,30 @@
 import { IoLogoJavascript } from "react-icons/io";
-import { FaHtml5 } from "react-icons/fa";
+import { FaHtml5, FaPython } from "react-icons/fa";
 import { FaCss3Alt } from "react-icons/fa6";
-import { RiNextjsFill } from "react-icons/ri";
-import { RiTailwindCssFill } from "react-icons/ri";
-import { FaPython } from "react-icons/fa";
-import React from 'react';
+import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
 
 export default function TechStack() {
   return (
-    <div className="overflow-hidden w-full">
-      <div>
-        <h1 className="flex justify-center pt-24 pb-16 text-5xl font-bold tracking-widest text-text2">
-          Tech Stack
-        </h1>
-      </div>
-      <div className="flex justify-center items-center bg-text py-6">
-        <div className="flex space-x-32 text-5xl text-neutral-500 animate-auto-scroll whitespace-nowrap">
-          <p className="text-blue-600 ">
-            <FaCss3Alt size={60} />
-          </p>
-          <p className="text-orange-400 ">
-            <FaHtml5 size={60} />
-          </p>
-          <p className="text-yellow-500 ">
-            <IoLogoJavascript size={60} />
-          </p>
-          <p className="text-black ">
-            <RiNextjsFill size={60} />
-          </p>
-          <p className="text-blue-800 ">
-            <FaPython size={60} />
-          </p>
-          <p className="text-blue-500 ">
-            <RiTailwindCssFill size={60} />
-          </p>
-          <p className="text-blue-600 ">
-            <FaCss3Alt size={60} />
-          </p>
-          <p className="text-orange-400 ">
-            <FaHtml5 size={60} />
-          </p>
-          <p className="text-yellow-500 ">
-            <IoLogoJavascript size={60} />
-          </p>
-          <p className="text-black ">
-            <RiNextjsFill size={60} />
-          </p>
-          <p className="text-blue-800 ">
-            <FaPython size={60} />
-          </p>
-          <p className="text-blue-500 ">
-            <RiTailwindCssFill size={60} />
-          </p>
+    <div className="overflow-hidden w-full bg-bg py-20">
+      <h2 className="text-center text-4xl md:text-5xl font-bold tracking-tight text-primary mb-16">
+        Tech Stack
+      </h2>
+      <div className="flex justify-center items-center bg-surface py-8">
+        <div className="flex space-x-20 animate-auto-scroll whitespace-nowrap">
+          {[
+            <FaCss3Alt key="css1" size={52} className="text-gray-300" />,
+            <FaHtml5 key="html1" size={52} className="text-gray-300" />,
+            <IoLogoJavascript key="js1" size={52} className="text-gray-300" />,
+            <RiNextjsFill key="next1" size={52} className="text-gray-300" />,
+            <FaPython key="py1" size={52} className="text-gray-300" />,
+            <RiTailwindCssFill key="tw1" size={52} className="text-gray-300" />,
+            <FaCss3Alt key="css2" size={52} className="text-gray-300" />,
+            <FaHtml5 key="html2" size={52} className="text-gray-300" />,
+            <IoLogoJavascript key="js2" size={52} className="text-gray-300" />,
+            <RiNextjsFill key="next2" size={52} className="text-gray-300" />,
+            <FaPython key="py2" size={52} className="text-gray-300" />,
+            <RiTailwindCssFill key="tw2" size={52} className="text-gray-300" />,
+          ]}
         </div>
       </div>
     </div>
