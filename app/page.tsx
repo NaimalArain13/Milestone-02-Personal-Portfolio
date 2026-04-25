@@ -4,6 +4,7 @@ import Contact from "./contact/page";
 import Project from "./project/page";
 import "./globals.css";
 import TechStack from "./components/autoSroll";
+import Chat from "./components/chat";
 
 export default function Home() {
   // const img = {
@@ -11,6 +12,8 @@ export default function Home() {
   // };
   return (
     <div className="bg-bg min-h-screen w-auto md:w-full">
+      <>
+      <Chat backendUrl={process.env.AGENT_BASEURL as string} /></>
       <div>
         <HeroSection />
       </div>
