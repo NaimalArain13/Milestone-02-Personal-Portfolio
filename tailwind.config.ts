@@ -8,22 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
-        'bg': '#020617',
-        'text': '#172554',
-        'text2': '#eef2ff',
-        'from': '#d1d5db',
-        'to': '#374151',
-        'button1':'#084868',
-        'button2':'#F04393'
+        bg:      "#ffffff",
+        surface: "#f5f5f5",
+        primary: "#000000",
+        muted:   "#bbbbbb",
+        accent:  "#00aae3",
+        border:  "#e5e5e5",
       },
-      
-    
+      fontFamily: {
+        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+      },
     },
   },
   plugins: [],
