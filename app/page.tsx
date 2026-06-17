@@ -7,16 +7,16 @@ import Chat from "./components/chat";
 
 const featuredProjects = [
   {
+    img: "/cassia-seed.PNG",
+    title: "Cassia-Seed-Pvt.-Ltd",
+    description: "Cassia Seed Pvt. Ltd – Providing High Quality Hybrid Vegetable Seeds 🌱 ✔ F1 Hybrid Seeds ✔ Farmer Support ✔ Nationwide Supply Pakistan",
+    route: "https://cassiaseed.com/en",
+  },
+  {
     img: "/room-matcher.png",
     title: "Room Matcher AI",
     description: "An AI powered room matcher multi-agent system.",
     route: "https://room-matcher-ai-rosy.vercel.app/",
-  },
-  {
-    img: "/nasa.png",
-    title: "Nasa AI",
-    description: "A SaaS platform built with OpenAI & Replicate APIs.",
-    route: "//github.com/NaimalArain13/NaSa_SaaS_ai",
   },
   {
     img: "/impactoM.PNG",

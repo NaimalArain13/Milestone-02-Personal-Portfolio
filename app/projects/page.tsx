@@ -3,6 +3,12 @@ import ProjectCard from "../components/projectCard";
 
 const projects = [
   {
+    img: "/cassia-seed.PNG",
+    title: "Cassia-Seed-Pvt.-Ltd",
+    description: "Providing High Quality Hybrid Vegetable Seeds. Nationwide Supply Pakistan",
+    route: "https://cassiaseed.com/en",
+  },
+  {
     img: "/room-matcher.png",
     title: "Room Matcher AI",
     description: "An AI powered room matcher multi-agent system.",
