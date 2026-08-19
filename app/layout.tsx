@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, DM_Mono, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
-import Footer from "./components/footer";
-import Cursor from "./components/cursor";
 import GlobalBackground from "./components/background animations/globalBackground";
 import ThemeProvider from "./components/themeProvider";
 
@@ -13,9 +11,26 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-playfair",
+});
+
 export const metadata: Metadata = {
   title: "Naimal Salahuddin",
-  description: "Full-Stack Developer & AI Engineer",
+  description: "Full-Stack Developer & Agentic AI Engineer",
+  icons: {
+    icon: "/logos/fav.jpg",
+    shortcut: "/logos/fav.jpg",
+    apple: "/logos/fav.jpg",
+  },
 };
 
 export default function RootLayout({
@@ -24,14 +39,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${dmSans.variable} font-sans`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${dmSans.variable} ${dmMono.variable} ${playfair.variable} font-sans`}>
         <ThemeProvider>
           <GlobalBackground />
           <Navbar />
           {children}
-          <Footer />
-          <Cursor />
         </ThemeProvider>
       </body>
     </html>

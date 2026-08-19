@@ -6,24 +6,31 @@ html {
   scroll-behavior: smooth;
 }
 
+/*
+ * Dark is the site's primary look (template: ashwingupta.dev grammar).
+ * Light theme keeps the toggle functional with readable inverses.
+ */
+
 /* Light theme tokens */
 :root {
-  --color-bg:      255 255 255;
-  --color-surface: 245 245 245;
-  --color-primary: 0 0 0;
-  --color-muted:   187 187 187;
-  --color-accent:  0 170 227;
-  --color-border:  229 229 229;
+  --color-bg:      250 250 248;
+  --color-surface: 240 239 235;
+  --color-primary: 12 12 14;
+  --color-muted:   90 90 100;
+  --color-accent:  8 145 178;   /* darker cyan for contrast on light */
+  --color-cream:   120 100 60;  /* cream reads as warm brown on light */
+  --color-border:  210 208 200;
 }
 
-/* Dark theme tokens — Option B: Deep Navy */
+/* Dark theme tokens — near-black editorial */
 .dark {
-  --color-bg:      10 15 30;
-  --color-surface: 17 24 39;
-  --color-primary: 226 232 240;
-  --color-muted:   100 116 139;
-  --color-accent:  0 212 255;
-  --color-border:  30 41 59;
+  --color-bg:      6 6 8;
+  --color-surface: 14 14 18;
+  --color-primary: 250 250 248;
+  --color-muted:   148 148 158;
+  --color-accent:  34 211 238;  /* #22d3ee */
+  --color-cream:   232 224 208; /* #e8e0d0 */
+  --color-border:  38 38 46;
 }
 
 body {
@@ -32,41 +39,49 @@ body {
 }
 
 h1, h2, h3, h4 {
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;
 }
 
-/* Hide native cursor on pointer devices */
-@media (pointer: fine) {
-  * { cursor: none !important; }
+/* ---- Template grammar utilities ---- */
+
+/* DM Mono uppercase micro-label */
+.eyebrow {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(var(--color-primary) / 0.4);
 }
 
-/* GSAP custom cursor — no CSS transform here; GSAP owns transform entirely */
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: 99999;
-  will-change: transform;
+.hairline {
+  height: 1px;
+  background: rgb(var(--color-primary) / 0.07);
 }
 
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #fff;
-  mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: 99999;
-  will-change: transform;
+/* Pulsing status dot */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Impact star gentle float */
+@keyframes impact-float {
+  0%, 100% { transform: translate(-50%, calc(-50% - 3px)); }
+  50%      { transform: translate(-50%, calc(-50% + 3px)); }
+}
+.impact-star {
+  animation: impact-float 5.5s ease-in-out infinite;
+}
+.impact-star:hover > span:first-child,
+.impact-star:focus-visible > span:first-child {
+  transform: scale(1.5);
+  transition: transform 0.2s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .impact-star { animation: none !important; }
 }
 
 /* Global background blob animations */
@@ -86,21 +101,4 @@ h1, h2, h3, h4 {
 
 .animate-breathe-slow {
   animation: breathe-slow 12s ease-in-out infinite;
-}
-
-/* Tech stack marquee */
-@keyframes auto-scroll {
-  0% {
-    transform: translateX(100%);
-  }
-  50% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-auto-scroll {
-  animation: auto-scroll 100s linear infinite;
 }

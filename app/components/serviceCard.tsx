@@ -1,26 +1,38 @@
-interface ServiceCardProps {
+"use client";
+import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
+interface Props {
+  slug: string;
   title: string;
   description: string;
   index: number;
 }
 
-export default function ServiceCard({ title, description, index }: ServiceCardProps) {
+export default function ServiceCard({ slug, title, description, index }: Props) {
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <div
-      className="group bg-surface rounded-xl p-8 hover:bg-accent transition-colors duration-300"
+    <Link
+      href={`/services/${slug}`}
+      className="group block bg-bg rounded-2xl p-8 hover:bg-accent transition-colors duration-300"
       data-aos="fade-up"
       data-aos-delay={index * 80}
-      data-aos-duration="800"
+      data-aos-duration="600"
     >
-      <span className="text-xs font-semibold tracking-widest text-muted group-hover:text-white/70 transition-colors duration-300 uppercase">
-        0{index + 1}
-      </span>
-      <h3 className="mt-3 text-xl font-semibold text-primary group-hover:text-white transition-colors duration-300">
+      <h3 className="text-xl font-bold text-primary group-hover:text-white transition-colors duration-300 mb-3">
         {title}
       </h3>
-      <p className="mt-2 text-sm text-muted group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
+      <p className="text-sm text-muted group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
         {description}
       </p>
-    </div>
+      <span className="mt-4 inline-block text-xs font-semibold text-accent group-hover:text-white transition-colors duration-300">
+        Learn more →
+      </span>
+    </Link>
   );
 }

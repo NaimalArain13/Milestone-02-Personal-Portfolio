@@ -33,18 +33,18 @@ export default function GlobalBackground() {
         ref={blob1Ref}
         className="absolute w-[600px] h-[600px] rounded-full animate-breathe"
         style={{
-          background: "radial-gradient(circle, rgba(0,170,227,0.10) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgb(var(--color-accent) / 0.06) 0%, transparent 70%)",
           filter: "blur(60px)",
           top: 0,
           left: 0,
         }}
       />
-      {/* Light blob */}
+      {/* Warm blob */}
       <div
         ref={blob2Ref}
         className="absolute w-[800px] h-[800px] rounded-full animate-breathe-slow"
         style={{
-          background: "radial-gradient(circle, rgba(245,245,245,0.6) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgb(var(--color-cream) / 0.05) 0%, transparent 70%)",
           filter: "blur(80px)",
           top: 0,
           left: 0,

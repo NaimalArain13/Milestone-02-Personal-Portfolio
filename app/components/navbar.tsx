@@ -2,7 +2,18 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiDownload } from "react-icons/fi";
+import { RESUME_URL } from "@/lib/data/site";
+
+const NAV_LINKS = [
+  { label: "About", href: "/#about" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Impact", href: "/#impact" },
+  { label: "Work", href: "/#featured" },
+  { label: "Stack", href: "/#stack" },
+  { label: "Services", href: "/services" },
+  { label: "Contact", href: "/#contact" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,38 +31,47 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-[clamp(20px,6vw,110px)] py-4 flex items-center justify-between ${
-        scrolled ? "bg-bg shadow-sm" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-[5vw] py-4 flex items-center justify-between border-b ${
+        scrolled ? "bg-bg/90 backdrop-blur-sm border-primary/10" : "bg-transparent border-transparent"
       }`}
     >
       <Link href="/">
-        <span className="text-2xl font-bold text-primary">NA</span>
+        <span className="font-display font-bold text-primary text-lg tracking-wide">
+          Naimal Salahuddin
+        </span>
       </Link>
 
       {/* Desktop nav */}
-      <nav className="hidden md:flex items-center gap-10">
-        {[
-          { label: "Projects", href: "/projects" },
-          { label: "Services", href: "/services" },
-          { label: "Contact",  href: "/contact"  },
-        ].map(({ label, href }) => (
+      <nav className="hidden md:flex items-center gap-7">
+        {NAV_LINKS.map(({ label, href }) => (
           <Link
             key={href}
             href={href}
-            className="text-lg font-semibold text-primary border-t-4 border-transparent hover:border-accent hover:text-accent transition-all duration-200 pt-2"
+            className="font-mono text-[0.65rem] uppercase text-primary/40 hover:text-primary transition-colors duration-200 py-2"
+            style={{ letterSpacing: "0.13em" }}
           >
             {label}
           </Link>
         ))}
+
+        <Link
+          href={RESUME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 font-mono text-[0.65rem] uppercase border border-primary/20 text-primary/70 px-3.5 py-1.5 rounded-full hover:border-accent/60 hover:text-accent transition-colors duration-200"
+          style={{ letterSpacing: "0.13em" }}
+        >
+          <FiDownload size={12} /> Resume
+        </Link>
 
         {/* Theme toggle */}
         {mounted && (
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
-            className="text-primary hover:text-accent transition-colors duration-200 pt-2"
+            className="text-primary/60 hover:text-accent transition-colors duration-200"
           >
-            {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+            {theme === "dark" ? <FiSun size={17} /> : <FiMoon size={17} />}
           </button>
         )}
       </nav>
@@ -62,9 +82,9 @@ export default function Navbar() {
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             aria-label="Toggle theme"
-            className="text-primary hover:text-accent transition-colors duration-200"
+            className="text-primary/60 hover:text-accent transition-colors duration-200"
           >
-            {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
+            {theme === "dark" ? <FiSun size={18} /> : <FiMoon size={18} />}
           </button>
         )}
         <button
@@ -72,27 +92,34 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
-          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {isOpen && (
-        <nav className="absolute top-full left-0 right-0 bg-bg border-t border-border shadow-sm flex flex-col items-center py-6 gap-6">
-          {[
-            { label: "Projects", href: "/projects" },
-            { label: "Services", href: "/services" },
-            { label: "Contact",  href: "/contact"  },
-          ].map(({ label, href }) => (
+        <nav className="absolute top-full left-0 right-0 bg-bg border-t border-primary/10 shadow-sm flex flex-col items-center py-6 gap-5">
+          {NAV_LINKS.map(({ label, href }) => (
             <Link
               key={href}
               href={href}
-              className="text-base font-semibold text-primary hover:text-accent transition-colors"
+              className="font-mono text-[0.7rem] uppercase text-primary/60 hover:text-primary transition-colors"
+              style={{ letterSpacing: "0.13em" }}
               onClick={() => setIsOpen(false)}
             >
               {label}
             </Link>
           ))}
+          <Link
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-[0.7rem] uppercase border border-primary/20 text-primary/70 px-4 py-1.5 rounded-full"
+            style={{ letterSpacing: "0.13em" }}
+            onClick={() => setIsOpen(false)}
+          >
+            <FiDownload size={13} /> Resume
+          </Link>
         </nav>
       )}
     </header>
