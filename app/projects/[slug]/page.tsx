@@ -13,11 +13,13 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
   if (!project) notFound();
 
   const categoryLabel = projectCategories.find((c) => c.id === project.category)?.label;
+  const backHref =
+    project.category === "rag" ? "/#rag" : project.category === "full-stack" ? "/#projects" : "/#featured";
 
   return (
     <main className="bg-bg min-h-screen pt-32 pb-24 px-6 md:px-[clamp(20px,6vw,110px)]">
       <div className="max-w-4xl mx-auto">
-        <Link href="/#featured" className="text-sm font-semibold text-accent hover:underline">
+        <Link href={backHref} className="text-sm font-semibold text-accent hover:underline">
           ← All Projects
         </Link>
 

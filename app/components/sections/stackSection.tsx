@@ -7,10 +7,9 @@ import { stackCategories } from "@/lib/data/stack";
 export default function StackSection() {
   return (
     <section id="stack" className="px-[6vw] pt-16 pb-28 scroll-mt-20">
-      <SectionHeader eyebrow="Stack" headline="What I build with." />
-
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-[8vw] items-start mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-[8vw] items-start">
         <div className="lg:sticky lg:top-24">
+          <SectionHeader eyebrow="Stack" headline="What I build with." />
           <p className="text-sm leading-[1.7] text-primary/50 max-w-[260px]">
             Used in shipped projects and production work — not just imported once.
           </p>

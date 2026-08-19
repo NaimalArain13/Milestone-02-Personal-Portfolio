@@ -1,4 +1,4 @@
-export type ProjectCategory = "full-stack" | "ai-agent";
+export type ProjectCategory = "full-stack" | "ai-agent" | "rag";
 
 export interface ProjectCaseStudy {
   problem: string;
@@ -22,6 +22,7 @@ export interface Project {
 
 export const projectCategories: { id: ProjectCategory; label: string }[] = [
   { id: "ai-agent", label: "AI Agent Orchestration" },
+  { id: "rag", label: "RAG & Applied AI" },
   { id: "full-stack", label: "Full-Stack Builds" },
 ];
 
@@ -149,7 +150,7 @@ export const projects: Project[] = [
     slug: "physical-ai-humanoid-robotics",
     title: "Physical AI & Humanoid Robotics Textbook",
     description: "Interactive Docusaurus textbook for robotics education, paired with a RAG-powered chatbot that answers student questions with citations back to the actual textbook sections.",
-    category: "ai-agent",
+    category: "rag",
     techStack: ["Docusaurus", "React", "TypeScript", "FastAPI", "Qdrant", "Gemini 1.5 Flash", "OpenAI Agents SDK"],
     liveUrl: "https://naimalarain13.github.io/physical-ai-and-humaniod-robotics/",
     githubUrl: "https://github.com/NaimalArain13/physical-ai-and-humaniod-robotics",

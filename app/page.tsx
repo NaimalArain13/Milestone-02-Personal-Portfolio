@@ -3,6 +3,7 @@ import About from "./components/sections/about";
 import ExperienceTimeline from "./components/sections/experienceTimeline";
 import Impact from "./components/sections/impact";
 import FeaturedProjects from "./components/sections/featuredProjects";
+import RagSection from "./components/sections/ragSection";
 import MoreProjects from "./components/sections/moreProjects";
 import StackSection from "./components/sections/stackSection";
 import ContactSection from "./components/sections/contactSection";
@@ -17,6 +18,7 @@ export default function Home() {
       <ExperienceTimeline />
       <Impact />
       <FeaturedProjects />
+      <RagSection />
       <MoreProjects />
       <StackSection />
       <ContactSection />
