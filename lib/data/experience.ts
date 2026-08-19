@@ -13,13 +13,14 @@ export interface ExperienceEntry {
 export const experience: ExperienceEntry[] = [
   {
     type: "work",
-    role: "Frontend Web Developer",
+    role: "Full-Stack Developer",
     company: "Scope Inspect App",
     period: "May 2025 — Present",
     location: "Full-Time · Remote (Florida, US)",
     color: "#22d3ee",
     description: [
-      "Feature development for an AI-powered inspection platform.",
+      "End-to-end feature development across frontend and backend for an AI-powered inspection platform.",
+      "Built and maintained third-party integrations.",
       "Production environment maintenance and bug resolution.",
       "Cross-functional collaboration on AI integration.",
     ],
@@ -30,7 +31,7 @@ export const experience: ExperienceEntry[] = [
     role: "Junior Full-Stack Developer",
     company: "TelGates Inc.",
     period: "Oct 2024 — May 2025",
-    location: "Remote",
+    location: "Remote (Islamabad)",
     color: "#4dd98a",
     description: [
       "Led team development across frontend and backend.",

@@ -26,11 +26,6 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Naimal Salahuddin",
   description: "Full-Stack Developer & Agentic AI Engineer",
-  icons: {
-    icon: "/logos/fav.jpg",
-    shortcut: "/logos/fav.jpg",
-    apple: "/logos/fav.jpg",
-  },
 };
 
 export default function RootLayout({
