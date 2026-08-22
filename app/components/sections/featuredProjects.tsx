@@ -1,6 +1,8 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { FaRobot } from "react-icons/fa6";
 import SectionHeader from "./sectionHeader";
 import { getProjectsByCategory, type Project } from "@/lib/data/projects";
 
@@ -13,7 +15,7 @@ function LabelledRow({ label, children }: { label: string; children: React.React
       >
         {label}
       </span>
-      <span className="text-[0.85rem] leading-[1.65] text-primary/60 text-justify flex-1 min-w-0">
+      <span className="text-[0.85rem] leading-[1.65] text-primary/60 flex-1 min-w-0">
         {children}
       </span>
     </div>
@@ -33,6 +35,21 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
         href={`/projects/${project.slug}`}
         className="group relative block border border-primary/15 rounded-lg p-6 h-full overflow-hidden transition-colors duration-300 hover:border-accent/40"
       >
+        <div className="relative aspect-[21/9] rounded-md overflow-hidden mb-4 bg-surface">
+          {project.image ? (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="(min-width: 1024px) 45vw, 90vw"
+              className="object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface to-bg">
+              <FaRobot size={40} className="text-accent/50" />
+            </div>
+          )}
+        </div>
         <div className="flex items-start justify-between gap-3 mb-1">
           <h3 className="font-display font-bold text-primary text-[1.6rem] leading-tight m-0">
             {project.title}
@@ -53,14 +70,16 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
             </span>
           ))}
         </div>
-        <div className="hairline mb-4" />
-        <div className="flex flex-col gap-3">
-          <LabelledRow label="Context">{project.caseStudy.problem}</LabelledRow>
-          <LabelledRow label="Approach">{project.caseStudy.approach[0]}</LabelledRow>
-          <LabelledRow label="System">{project.caseStudy.architecture[0]}</LabelledRow>
-          <LabelledRow label="Outcome">
-            <strong className="text-cream font-semibold">{project.caseStudy.outcomes[0]}</strong>
-          </LabelledRow>
+        <div className="hidden md:block">
+          <div className="hairline mb-4" />
+          <div className="flex flex-col gap-3">
+            <LabelledRow label="Context">{project.caseStudy.problem}</LabelledRow>
+            <LabelledRow label="Approach">{project.caseStudy.approach[0]}</LabelledRow>
+            <LabelledRow label="System">{project.caseStudy.architecture[0]}</LabelledRow>
+            <LabelledRow label="Outcome">
+              <strong className="text-cream font-semibold">{project.caseStudy.outcomes[0]}</strong>
+            </LabelledRow>
+          </div>
         </div>
         <span
           className="eyebrow !text-accent block mt-5 group-hover:underline"

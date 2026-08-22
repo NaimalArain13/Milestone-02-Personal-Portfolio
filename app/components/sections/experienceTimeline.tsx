@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import SectionHeader from "./sectionHeader";
 import { experience } from "@/lib/data/experience";
@@ -39,22 +40,35 @@ export default function ExperienceTimeline() {
                   background: `linear-gradient(180deg, ${entry.color}0e 0%, ${entry.color}05 100%)`,
                 }}
               >
-                <div className="px-4 pt-3.5">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-0.5">
-                    <span className="font-semibold text-primary text-[0.95rem] leading-tight">
-                      {entry.role}
-                    </span>
-                    <span className="font-mono text-[0.6rem] text-primary/40 whitespace-nowrap" style={{ letterSpacing: "0.06em" }}>
-                      {entry.period}
+                <div className="px-4 pt-3.5 flex items-start justify-between gap-4">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mb-0.5">
+                      <span className="font-semibold text-primary text-[0.95rem] leading-tight">
+                        {entry.role}
+                      </span>
+                      <span className="font-mono text-[0.6rem] text-primary/40 whitespace-nowrap" style={{ letterSpacing: "0.06em" }}>
+                        {entry.period}
+                      </span>
+                    </div>
+                    <span className="font-mono text-[0.65rem] block" style={{ color: `${entry.color}bb`, letterSpacing: "0.04em" }}>
+                      {entry.company} · {entry.location}
                     </span>
                   </div>
-                  <span className="font-mono text-[0.65rem] block" style={{ color: `${entry.color}bb`, letterSpacing: "0.04em" }}>
-                    {entry.company} · {entry.location}
-                  </span>
-                  {(entry.description.length > 0 || entry.techStack.length > 0) && (
-                    <div className="h-px mt-2.5 mb-3" style={{ background: `${entry.color}20` }} />
+                  {entry.logo && (
+                    <div className="hidden lg:flex items-center justify-center w-14 h-14 rounded-md bg-white/5 border border-primary/10 flex-shrink-0 overflow-hidden p-1.5">
+                      <Image
+                        src={entry.logo}
+                        alt={entry.company}
+                        width={44}
+                        height={44}
+                        className="object-contain w-full h-full"
+                      />
+                    </div>
                   )}
                 </div>
+                {(entry.description.length > 0 || entry.techStack.length > 0) && (
+                  <div className="mx-4 h-px mt-2.5 mb-3" style={{ background: `${entry.color}20` }} />
+                )}
 
                 {entry.description.length > 0 && (
                   <div className="px-4 pb-3 flex flex-col gap-1.5">

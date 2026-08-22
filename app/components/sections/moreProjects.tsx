@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaGithub, FaArrowUpRightFromSquare } from "react-icons/fa6";
@@ -21,6 +22,17 @@ export default function MoreProjects() {
             transition={{ duration: 0.55, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="border border-primary/15 rounded-lg p-6 flex flex-col"
           >
+            {project.image && (
+              <div className="relative aspect-video rounded-md overflow-hidden mb-4 bg-surface">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
+            )}
             <div className="flex items-start justify-between gap-3 mb-2">
               <Link href={`/projects/${project.slug}`} className="group">
                 <h3 className="font-display font-bold text-primary text-xl leading-tight m-0 group-hover:text-accent transition-colors">

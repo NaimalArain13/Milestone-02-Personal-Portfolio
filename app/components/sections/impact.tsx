@@ -31,13 +31,13 @@ function Star({
       />
       <span
         aria-hidden="true"
-        className="absolute top-full left-1/2 -translate-x-1/2 font-mono text-[0.6rem] text-primary/80 whitespace-nowrap pointer-events-none -mt-0.5"
+        className="absolute top-full left-1/2 -translate-x-1/2 font-mono text-[0.52rem] sm:text-[0.6rem] text-primary/80 whitespace-nowrap pointer-events-none -mt-0.5"
       >
         {value}
       </span>
       <span
         role="tooltip"
-        className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 z-10 mb-3 w-max max-w-[190px] scale-95 rounded-lg border px-3 py-2 text-center font-mono text-[0.62rem] leading-snug opacity-0 transition-[opacity,transform] duration-100 ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+        className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 z-10 mb-3 w-max max-w-[150px] sm:max-w-[190px] scale-95 rounded-lg border px-3 py-2 text-center font-mono text-[0.56rem] sm:text-[0.62rem] leading-snug opacity-0 transition-[opacity,transform] duration-100 ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
         style={{
           background: "rgb(var(--color-bg) / 0.97)",
           borderColor: `${color}55`,
@@ -95,8 +95,7 @@ export default function Impact() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.9 }}
-        className="hidden md:block relative w-full mt-6"
-        style={{ aspectRatio: "1300 / 640" }}
+        className="relative w-full mt-6 aspect-[720/640] sm:aspect-[1000/640] md:aspect-[1300/640]"
       >
         <svg
           viewBox="0 0 100 100"
@@ -159,7 +158,7 @@ export default function Impact() {
         {impactClusters.map((c) => (
           <span
             key={`label-${c.cluster}`}
-            className="absolute font-mono text-[0.6rem] font-semibold uppercase whitespace-nowrap px-2 py-[3px] rounded-md border border-primary/10 z-[4]"
+            className="absolute font-mono text-[0.52rem] sm:text-[0.6rem] font-semibold uppercase whitespace-nowrap px-2 py-[3px] rounded-md border border-primary/10 z-[4]"
             style={{
               left: `${c.hubX}%`,
               top: `${c.hubY + 6}%`,
@@ -188,43 +187,6 @@ export default function Impact() {
           </span>
         </div>
       </motion.div>
-
-      {/* Mobile: stacked cluster lists */}
-      <div className="md:hidden flex flex-col gap-8 mt-4">
-        {impactClusters.map((c) => (
-          <div key={c.cluster}>
-            <div className="flex items-center gap-2.5 mb-3">
-              <span
-                className="w-2 h-2 rounded-full flex-shrink-0"
-                style={{ background: c.color, boxShadow: `0 0 6px ${c.color}` }}
-              />
-              <span
-                className="font-mono text-[0.62rem] font-semibold uppercase"
-                style={{ letterSpacing: "0.12em", color: c.color }}
-              >
-                {c.cluster}
-              </span>
-            </div>
-            <div className="flex flex-col">
-              {c.metrics.map((m) => {
-                const row = (
-                  <div className="flex items-baseline gap-4 py-2.5 border-b border-primary/5">
-                    <span className="font-mono text-sm text-primary w-20 flex-shrink-0">{m.value}</span>
-                    <span className="text-sm text-primary/55">{m.description}</span>
-                  </div>
-                );
-                return m.href ? (
-                  <Link key={m.value} href={m.href}>
-                    {row}
-                  </Link>
-                ) : (
-                  <div key={m.value}>{row}</div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }

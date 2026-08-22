@@ -133,7 +133,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="hidden md:block relative w-3/4 mx-auto lg:mr-[2vw] lg:ml-auto"
+          className="relative w-3/4 max-w-[280px] mx-auto mt-10 md:mt-0 md:w-3/4 md:max-w-none lg:mr-[2vw] lg:ml-auto"
         >
           <div className="relative rounded overflow-hidden" style={{ aspectRatio: "3/4" }}>
             <Image
@@ -141,7 +141,7 @@ export default function Hero() {
               alt="Naimal Salahuddin"
               fill
               priority
-              sizes="(min-width: 768px) 35vw, 0px"
+              sizes="(min-width: 768px) 35vw, 70vw"
               className="object-cover"
               style={{ objectPosition: "50% 20%", filter: "grayscale(15%) contrast(1.05)" }}
             />

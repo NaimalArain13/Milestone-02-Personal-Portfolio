@@ -1,19 +1,24 @@
 "use client";
 import { motion } from "framer-motion";
+import { FiUsers, FiCpu } from "react-icons/fi";
+import { SiFigma } from "react-icons/si";
 import SectionHeader from "./sectionHeader";
 
 const PRINCIPLES = [
   {
     title: "Agents with a human in the loop",
     body: "Autonomous doesn't mean unsupervised. The agent systems I build route sensitive actions — emails, posts, payments — through explicit approval workflows before anything executes.",
+    Icon: FiUsers,
   },
   {
     title: "Full-stack, Figma to deploy",
     body: "I take products from a design file or a rough brief to a live deployment: componentised Next.js frontends, typed APIs, CMS-backed content, and production hosting on Vercel.",
+    Icon: SiFigma,
   },
   {
     title: "Local-first automation",
     body: "Watchers, orchestrators, and MCP servers that run on real machines against real inboxes — built to survive restarts, retry on failure, and log everything they do.",
+    Icon: FiCpu,
   },
 ];
 
@@ -74,13 +79,12 @@ export default function About() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-60px" }}
-              className="border border-primary/15 rounded-lg p-6"
+              className="border border-primary/15 rounded-lg px-6 py-5 flex items-center gap-4"
             >
-              <div className="flex items-center gap-2.5 mb-2.5">
-                <span className="w-[5px] h-[5px] rounded-full bg-cream flex-shrink-0" />
-                <h3 className="font-display font-bold text-primary text-lg m-0">{p.title}</h3>
-              </div>
-              <p className="text-sm leading-[1.7] text-primary/55 m-0 text-justify">{p.body}</p>
+              <span className="flex items-center justify-center w-12 h-12 rounded-full bg-cream/10 text-cream flex-shrink-0">
+                <p.Icon size={22} />
+              </span>
+              <h3 className="font-display font-bold text-primary text-lg m-0">{p.title}</h3>
             </motion.div>
           ))}
         </div>

@@ -7,6 +7,7 @@ export interface ExperienceEntry {
   color: string;
   description: string[];
   techStack: string[];
+  logo?: string;
 }
 
 /** Newest first. */
@@ -25,6 +26,7 @@ export const experience: ExperienceEntry[] = [
       "Cross-functional collaboration on AI integration.",
     ],
     techStack: ["React", "Redux", "MUI", "Tailwind CSS", "FastAPI", "OpenAI Agent SDK"],
+    logo: "/logos/ScopeLogoV4.svg",
   },
   {
     type: "work",
@@ -39,6 +41,7 @@ export const experience: ExperienceEntry[] = [
       "Integrated Web3 product functionality end to end.",
     ],
     techStack: ["React", "Next.js", "TypeScript", "TonConnect", "Smart Contracts"],
+    logo: "/logos/telgates-logo.png",
   },
   {
     type: "education",
@@ -52,6 +55,7 @@ export const experience: ExperienceEntry[] = [
       "Full-stack track: Next.js, TypeScript, Python, cloud deployment.",
     ],
     techStack: ["Next.js", "Python", "OpenAI Agents SDK", "MCP"],
+    logo: "/logos/governer%20house.avif",
   },
   {
     type: "education",
@@ -65,5 +69,6 @@ export const experience: ExperienceEntry[] = [
       "Built a foundation in scientific reasoning and analytical problem-solving.",
     ],
     techStack: [],
+    logo: "/logos/biseh_logo.jpg",
   },
 ];

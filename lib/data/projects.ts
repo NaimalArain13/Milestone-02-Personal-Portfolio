@@ -29,6 +29,35 @@ export const projectCategories: { id: ProjectCategory; label: string }[] = [
 export const projects: Project[] = [
   // ---------- AI Agent Orchestration ----------
   {
+    slug: "meeting-assistant",
+    title: "Meeting Assistant",
+    description: "A Claude Agent Skill that pulls meeting transcripts from Fathom, extracts structured action items, and delivers formatted summaries to Discord — no public server required.",
+    category: "ai-agent",
+    techStack: ["Claude Agent Skills", "OpenClaw", "Discord API", "Fathom REST API", "Node.js"],
+    githubUrl: "https://github.com/NaimalArain13/meeting-assistant",
+    caseStudy: {
+      problem:
+        "Meeting notes and action items get lost after the call ends — someone has to re-watch the recording or re-read the transcript to figure out who owes what.",
+      approach: [
+        "Milestone 1: connected a Discord bot to an agent gateway (OpenClaw) as the delivery channel, using an outbound-only WebSocket connection so no public IP, port forwarding, or tunnel is needed to demo from a laptop.",
+        "Milestone 2: built a pipeline that polls Fathom's REST API for new transcripts, runs them through a custom Claude Agent Skill that extracts structured action items, and posts formatted summaries to Discord.",
+        "Deliberately chose polling over webhooks for transcript retrieval, trading a small amount of latency for zero exposed infrastructure.",
+      ],
+      architecture: [
+        "Secrets (Discord bot token, Fathom API key) are stored in a systemd-service-scoped .env, not shell exports — the gateway runs as a background service with no interactive shell, so a plain `export` disappears on restart.",
+        "Deduplication uses a timestamp watermark plus a recording-ID set: timestamps alone collide, and IDs alone can't bound the polling query window.",
+        "The skill's logic lives in SKILL.md plus reference/ and scripts/ folders, loaded into the agent's context only on demand (progressive disclosure) — with ~50 other skills installed, always-on loading would exhaust the context budget before any real work started.",
+        "Evaluated Fathom's official remote MCP server (OAuth-based) and deliberately rejected it: an OAuth token expiring mid-week would silently break an unattended cron job, and the polling script itself runs as a headless command with no agent turn — so MCP tools aren't even in scope for it. Used a plain REST call with a static API key instead.",
+      ],
+      outcomes: [
+        "Fathom → extraction → Discord delivery path verified working end to end.",
+        "Extraction logic validated against a scripted test meeting covering direct name mentions, first-person commitments, keyword-only mentions, and deliberate non-action-item chatter — to confirm the skill doesn't over-extract false positives, not just that it finds real action items.",
+        "Scheduling automation (cron) was scoped as a deferred follow-up milestone rather than rushed in.",
+      ],
+      note: "Internal tool — no public live demo; architecture and setup are fully documented in the repo.",
+    },
+  },
+  {
     slug: "room-matcher-ai",
     title: "Room Matcher AI",
     description: "AI-powered multi-agent system that matches roommates and generates personalised compatibility advice through an inspectable, multi-step agent pipeline.",
@@ -63,8 +92,9 @@ export const projects: Project[] = [
     title: "MittiPay",
     description: "AI-assisted financial dashboard with voice-based expense logging plus dedicated market, weather, and prediction advisory reports.",
     category: "ai-agent",
+    image: "/logos/mitti-pay.png",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Shadcn UI", "Voice Input"],
-    liveUrl: "https://ai-powered-financial-mittipay-app.vercel.app",
+    liveUrl: "https://ai-powered-financial-mout2aqym-naimals-projects.vercel.app/",
     githubUrl: "https://github.com/NaimalArain13/AI-Powered-Financial-App",
     caseStudy: {
       problem:
@@ -86,35 +116,7 @@ export const projects: Project[] = [
       ],
     },
   },
-  {
-    slug: "meeting-assistant",
-    title: "Meeting Assistant",
-    description: "A Claude Agent Skill that pulls meeting transcripts from Fathom, extracts structured action items, and delivers formatted summaries to Discord — no public server required.",
-    category: "ai-agent",
-    techStack: ["Claude Agent Skills", "OpenClaw", "Discord API", "Fathom REST API", "Node.js"],
-    githubUrl: "https://github.com/NaimalArain13/meeting-assistant",
-    caseStudy: {
-      problem:
-        "Meeting notes and action items get lost after the call ends — someone has to re-watch the recording or re-read the transcript to figure out who owes what.",
-      approach: [
-        "Milestone 1: connected a Discord bot to an agent gateway (OpenClaw) as the delivery channel, using an outbound-only WebSocket connection so no public IP, port forwarding, or tunnel is needed to demo from a laptop.",
-        "Milestone 2: built a pipeline that polls Fathom's REST API for new transcripts, runs them through a custom Claude Agent Skill that extracts structured action items, and posts formatted summaries to Discord.",
-        "Deliberately chose polling over webhooks for transcript retrieval, trading a small amount of latency for zero exposed infrastructure.",
-      ],
-      architecture: [
-        "Secrets (Discord bot token, Fathom API key) are stored in a systemd-service-scoped .env, not shell exports — the gateway runs as a background service with no interactive shell, so a plain `export` disappears on restart.",
-        "Deduplication uses a timestamp watermark plus a recording-ID set: timestamps alone collide, and IDs alone can't bound the polling query window.",
-        "The skill's logic lives in SKILL.md plus reference/ and scripts/ folders, loaded into the agent's context only on demand (progressive disclosure) — with ~50 other skills installed, always-on loading would exhaust the context budget before any real work started.",
-        "Evaluated Fathom's official remote MCP server (OAuth-based) and deliberately rejected it: an OAuth token expiring mid-week would silently break an unattended cron job, and the polling script itself runs as a headless command with no agent turn — so MCP tools aren't even in scope for it. Used a plain REST call with a static API key instead.",
-      ],
-      outcomes: [
-        "Fathom → extraction → Discord delivery path verified working end to end.",
-        "Extraction logic validated against a scripted test meeting covering direct name mentions, first-person commitments, keyword-only mentions, and deliberate non-action-item chatter — to confirm the skill doesn't over-extract false positives, not just that it finds real action items.",
-        "Scheduling automation (cron) was scoped as a deferred follow-up milestone rather than rushed in.",
-      ],
-      note: "Internal tool — no public live demo; architecture and setup are fully documented in the repo.",
-    },
-  },
+  
   {
     slug: "personal-ai-employee",
     title: "Personal AI Employee",
