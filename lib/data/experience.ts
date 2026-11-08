@@ -45,6 +45,21 @@ export const experience: ExperienceEntry[] = [
   },
   {
     type: "education",
+    role: "Bachelors in Computer Science",
+    company: "Virtual University",
+    period: "Oct 2026 — 2030",
+    location: "Pakistan",
+    color: "#60a5fa",
+    description: [
+      "4-year Bachelor's program in Computer Science.",
+      "Core coursework in programming, data structures, algorithms, and software engineering.",
+      "Distance-learning model with a strong emphasis on self-directed, project-based learning.",
+    ],
+    techStack: [],
+    logo: "/logos/virtual%20logo.png",
+  },
+  {
+    type: "education",
     role: "Diploma — Agentic AI & Full-Stack Development",
     company: "GIAIC",
     period: "2023 — Present",
